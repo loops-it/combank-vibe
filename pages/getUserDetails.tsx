@@ -166,7 +166,7 @@ const UserDetails: NextPage<Props> = ({ dirs }) => {
         await handleUpload()
 
         setIsLoading(false);
-        // router.push('/success');
+        router.push('/success');
 
     };
 
