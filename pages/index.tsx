@@ -18,6 +18,9 @@ export default function Home() {
 
 
   useEffect(() => {
+
+    console.log("get slide images")
+    
     const getImageSlide = async () => {
       const response = await fetch("https://it-marketing.website/vibe-backend/api/get-completed-images", {
         method: "POST",
@@ -34,6 +37,7 @@ export default function Home() {
       console.log("slide images : ",slideImages)
     }
     getImageSlide()
+    
   }, [])
 
 
