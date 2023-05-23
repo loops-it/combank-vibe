@@ -113,30 +113,8 @@ export default function Home() {
                 },
               }}
             >
-              {/* <SwiperSlide>
-                <Image src="/sliderimg-1.png" alt="" width={250} height={250} className="img-fluid" />
-              </SwiperSlide>
-              <SwiperSlide>
-                <Image src="/sliderimg-2.png" alt="" width={250} height={250} className="img-fluid" />
-              </SwiperSlide>
-              <SwiperSlide>
-                <Image src="/sliderimg-3.png" alt="" width={250} height={250} className="img-fluid" />
-              </SwiperSlide>
-              <SwiperSlide>
-                <Image src="/sliderimg-4.png" alt="" width={250} height={250} className="img-fluid" />
-              </SwiperSlide>
-              <SwiperSlide>
-                <Image src="/sliderimg-1.png" alt="" width={250} height={250} className="img-fluid" />
-              </SwiperSlide>
-              <SwiperSlide>
-                <Image src="/sliderimg-2.png" alt="" width={250} height={250} className="img-fluid" />
-              </SwiperSlide>
-              <SwiperSlide>
-                <Image src="/sliderimg-3.png" alt="" width={250} height={250} className="img-fluid" />
-              </SwiperSlide> */}
-
-              {images.map((id, image) => (
-                <SwiperSlide key={id}>
+              {images.map((image) => (
+                <SwiperSlide key={image.id}>
                   <Link href={"/view-image/"+image.image_id}>
                   <Image src={"https://it-marketing.website/vibe-backend/final_images/"+image.final_image} alt="" width={250} height={250} className="img-fluid" />
                   </Link>
