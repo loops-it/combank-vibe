@@ -39,7 +39,7 @@ export default function Home() {
         throw slideImages.error || new Error(`Request failed with status ${response.status}`);
       }
       console.log("slide images : ",slideImages)
-      setSlideImages(slideImages.final_image)
+      setSlideImages(slideImages.images.final_image)
     }
     getImageSlide()
     
