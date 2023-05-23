@@ -30,41 +30,27 @@ const UserDetails: NextPage<Props> = ({ dirs }) => {
     const [selectedImage, setSelectedImage] = useState("");
     const [savedImageUrl, setSavedImageUrl] = useState("");
     const [selectedFile, setSelectedFile] = useState<File>();
+
+    const [isUploaded, setIsUploaded] = useState(false);
+    const [isUploadedDone, setIsUploadedDone] = useState(false);
     const router = useRouter();
 
 
     // get latest dir and update variables
     useEffect(() => {
 
-    }, [ name, age, gender, country, ambition, email, phoneNo, aiMessage, resId, savedImageUrl])
+    }, [name, age, gender, country, ambition, email, phoneNo, aiMessage, resId, savedImageUrl])
 
     useEffect(() => {
         if (dirs.length > 0) {
-          const latestDir = dirs[dirs.length - 1];
-          setSavedImageUrl(`https://combank-vibe-bay.vercel.app/images/${latestDir}`);
+            const latestDir = dirs[dirs.length - 1];
+            setSavedImageUrl(`https://combank-vibe-bay.vercel.app/images/${latestDir}`);
         }
-      }, [dirs]);
-    console.log("image data : ", savedImageUrl)
+    }, [dirs]);
 
 
     // handle image upload
-    const handleUpload = async () => {
-        try {
-            if (!selectedFile) return
-            const formData = new FormData();
-            formData.append("myImage", selectedFile);
-            const { data } = await axios.post("/api/image", formData);
-            console.log("image data : ", data)
 
-            if (data.done === "ok") {
-                // After successful upload, fetch the updated list of directories
-                setSavedImageUrl(data.imageUrl);
-                console.log("done--->ok");
-              }
-        } catch (error: any) {
-            console.log(error.response?.data)
-        }
-    }
 
 
     // console.log("saved url of image : ", savedImageUrl)
@@ -86,82 +72,101 @@ const UserDetails: NextPage<Props> = ({ dirs }) => {
 
 
 
+
+
+
+
+    const handleUpload = async () => {
+        try {
+            if (!selectedFile) return
+            const formData = new FormData();
+            formData.append("myImage", selectedFile);
+            const { data } = await axios.post("/api/image", formData);
+            console.log("image data : ", data)
+
+            setSavedImageUrl(data.imageUrl);
+            setIsUploadedDone(true)
+
+        } catch (error: any) {
+            console.log(error.response?.data)
+        }
+    }
+
+
+    useEffect(() => {
+        if (isUploadedDone && isChecked) {
+          const handleData = async()=>{
+            try {
+                console.log("done is checked", isUploadedDone);
+                    // data to backend
+                    console.log(`data : ${name} , ${age} ,${gender} ,${email} , ${phoneNo}, ${ambition} , ${country}, ${savedImageUrl} `)
+                    const response = await fetch("https://it-marketing.website/vibe-backend/api/save-customer-data", {
+                        method: "POST",
+                        headers: {
+                            "Content-Type": "application/json",
+                        },
+                        body: JSON.stringify(
+                            {
+                                name: name,
+                                age: age,
+                                gender: gender,
+                                location: country,
+                                ambition: ambition,
+                                email: email,
+                                phoneNo: phoneNo,
+                                savedImageUrl: savedImageUrl,
+                            }
+                        ),
+                    });
+    
+                    const dataBackend = await response.json();
+                    if (response.status !== 200) {
+                        throw dataBackend.error || new Error(`Request failed with status ${response.status}`);
+                    }
+                    const resCustomerId = dataBackend.id
+                    setResId(resCustomerId)
+                    console.log("respons id : ", resCustomerId)
+    
+                    // chat gpt generate
+                    const responseOpenAi = await fetch("/api/generate", {
+                        method: "POST",
+                        headers: {
+                            "Content-Type": "application/json",
+                        },
+                        body: JSON.stringify(
+                            {
+                                name: name,
+                                age: age,
+                                location: country,
+                                ambition: ambition,
+                            }
+                        ),
+                    });
+    
+                    const data = await responseOpenAi.json();
+                    if (responseOpenAi.status !== 200) {
+                        throw data.error || new Error(`Request failed with status ${responseOpenAi.status}`);
+                    }
+                    setAiMessage(data.result)
+                    console.log(aiMessage.toString())
+              } catch (error) {
+                console.error(error);
+              }
+          }
+          handleData()
+        }
+        
+      }, [isUploadedDone, isChecked]);
+
+
     const handleSubmit = async (event: { preventDefault: () => void; }) => {
         event.preventDefault();
+        setIsLoading(true);
+        
+        await handleUpload()
 
-        if (isChecked) {
-            console.log('checked')
-            setIsLoading(true);
-            handleUpload()
-
-
-            try {
-
-                // data to backend
-                console.log(`data : ${name} , ${age} ,${gender} ,${email} , ${phoneNo}, ${ambition} , ${country}, ${savedImageUrl} `)
-                const response = await fetch("https://it-marketing.website/vibe-backend/api/save-customer-data", {
-                    method: "POST",
-                    headers: {
-                        "Content-Type": "application/json",
-                    },
-                    body: JSON.stringify(
-                        {
-                            name: name,
-                            age: age,
-                            gender: gender,
-                            location: country,
-                            ambition: ambition,
-                            email: email,
-                            phoneNo: phoneNo,
-                            savedImageUrl: savedImageUrl,
-                        }
-                    ),
-                });
-
-                const dataBackend = await response.json();
-                if (response.status !== 200) {
-                    throw dataBackend.error || new Error(`Request failed with status ${response.status}`);
-                }
-                const resCustomerId = dataBackend.id
-                setResId(resCustomerId)
-                console.log("respons id : ", resCustomerId)
-
-                // chat gpt generate
-                const responseOpenAi = await fetch("/api/generate", {
-                    method: "POST",
-                    headers: {
-                        "Content-Type": "application/json",
-                    },
-                    body: JSON.stringify(
-                        {
-                            name: name,
-                            age: age,
-                            location: country,
-                            ambition: ambition,
-                        }
-                    ),
-                });
-
-                const data = await responseOpenAi.json();
-                if (responseOpenAi.status !== 200) {
-                    throw data.error || new Error(`Request failed with status ${responseOpenAi.status}`);
-                }
-                setAiMessage(data.result)
-                console.log(aiMessage.toString())
-
-
-
-                setIsLoading(false);
-                router.push('/success');
-
-            } catch (error) {
-                console.error(error);
-            }
-
-
-        } else {
-            console.log('not checked')
-        }
+        setIsLoading(false);
+        // router.push('/success');
 
     };
 
