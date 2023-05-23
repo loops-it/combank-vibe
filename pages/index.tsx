@@ -69,6 +69,24 @@ export default function Home() {
   //   );
   // };
 
+  const images = [
+    {
+      id: 66,
+      name: 'ray',
+      age: '15',
+      gender: 'male',
+      location: 'France'
+    },
+    {
+      id: 64,
+      name: 'arjun',
+      age: '17',
+      gender: 'male',
+      location: 'United States'
+    }
+  ];
+
+
   return (
     <>
 
@@ -96,13 +114,19 @@ export default function Home() {
                         Get Started
                       </button></Link>
 
-                      {
-                        slide.map((index: React.Key | null | undefined , image: { id: string | number | boolean | React.ReactElement<any, string | React.JSXElementConstructor<any>> | React.ReactFragment | React.ReactPortal | null | undefined; })=> {
-                          (
-                            <h1 key={index}>{image.id}</h1>
-                          )
-                        })
-                      }
+                    <div>
+                      {images.map((image) => (
+                        <div key={image.id}>
+                          {/* Render the image */}
+                          {/* Render other properties */}
+                          <p>Name: {image.name}</p>
+                          <p>Age: {image.age}</p>
+                          <p>Gender: {image.gender}</p>
+                          <p>Location: {image.location}</p>
+                          {/* Add more properties as needed */}
+                        </div>
+                      ))}
+                    </div>
                   </div>
                 </div>
               </div>
