@@ -38,7 +38,7 @@ const ShareImage = () => {
                                     </div>
                                 </div>
                             </div>
-                            <button className="submit-btn my-3 px-3" type="submit">NEXT</button>
+                            <button className="submit-btn my-3 px-3" type="submit">DOWNLOAD</button>
                         </div>
                     </div>
                 </div>
