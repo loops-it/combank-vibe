@@ -8,6 +8,7 @@ import 'swiper/css/scrollbar';
 import Layout from '@/components/layout';
 import Link from 'next/link';
 import React, { useEffect, useState } from 'react'
+import axios from 'axios';
 
 
 
@@ -16,75 +17,25 @@ import React, { useEffect, useState } from 'react'
 
 export default function Home() {
 
-  const [slide, setSlide] = useState()
+  const [images, setImages] = useState([]);
 
   useEffect(() => {
-    // console.log(slide)
-  }, [slide])
+  }, [images])
 
   useEffect(() => {
-
-    // console.log("get slide images")
-
-    const getImageSlide = async () => {
-      const response = await fetch("https://it-marketing.website/vibe-backend/api/get-completed-images", {
-        method: "POST",
-        headers: {
-          "Content-Type": "application/json",
-        },
-      });
-
-      const slideImages = await response.json();
-      if (response.status !== 200) {
-        throw slideImages.error || new Error(`Request failed with status ${response.status}`);
+    const fetchImages = async () => {
+      try {
+        const response = await axios.get('https://it-marketing.website/vibe-backend/api/get-completed-images');
+        setImages(response.data.images);
+      } catch (error) {
+        console.error('Error fetching images:', error);
       }
-      // console.log("slide images : ", slideImages)
+    };
 
-      const images = slideImages.images
-      // console.log("image array : ", images)
-      setSlide(images)
-      // return images 
-    }
-    getImageSlide()
-
-
-
+    fetchImages();
   }, [])
 
-  console.log("images : ", slide)
-
-
-
-  // const ImagesList = ({ slide  }) => {
-  //   return (
-  //     <div>
-  //       {slide.map(image) => (
-  //         <img
-  //           key={image.id}
-  //           src={image.final_image}
-  //           alt={image.name}
-  //         />
-  //       ))}
-  //     </div>
-  //   );
-  // };
-
-  const images = [
-    {
-      id: 66,
-      name: 'ray',
-      age: '15',
-      gender: 'male',
-      location: 'France'
-    },
-    {
-      id: 64,
-      name: 'arjun',
-      age: '17',
-      gender: 'male',
-      location: 'United States'
-    }
-  ];
+  // console.log("images : ", slide)
 
 
   return (
@@ -113,20 +64,6 @@ export default function Home() {
                       >
                         Get Started
                       </button></Link>
-
-                    <div>
-                      {images.map((image) => (
-                        <div key={image.id}>
-                          {/* Render the image */}
-                          {/* Render other properties */}
-                          <p>Name: {image.name}</p>
-                          <p>Age: {image.age}</p>
-                          <p>Gender: {image.gender}</p>
-                          <p>Location: {image.location}</p>
-                          {/* Add more properties as needed */}
-                        </div>
-                      ))}
-                    </div>
                   </div>
                 </div>
               </div>
@@ -176,7 +113,7 @@ export default function Home() {
                 },
               }}
             >
-              <SwiperSlide>
+              {/* <SwiperSlide>
                 <Image src="/sliderimg-1.png" alt="" width={250} height={250} className="img-fluid" />
               </SwiperSlide>
               <SwiperSlide>
@@ -196,10 +133,15 @@ export default function Home() {
               </SwiperSlide>
               <SwiperSlide>
                 <Image src="/sliderimg-3.png" alt="" width={250} height={250} className="img-fluid" />
-              </SwiperSlide>
+              </SwiperSlide> */}
 
-
-
+              {images.map((image) => (
+                <SwiperSlide>
+                  <Link href={"/view-image/"+image.image_id}>
+                  <Image src={"https://it-marketing.website/vibe-backend/final_images/"+image.final_image} alt="" width={250} height={250} className="img-fluid" />
+                  </Link>
+                </SwiperSlide>
+              ))}
             </Swiper>
           </div>
         </div>
