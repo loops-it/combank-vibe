@@ -19,12 +19,12 @@ export default function Home() {
   const [slide, setSlide] = useState()
 
   useEffect(() => {
-    console.log(slide)
+    // console.log(slide)
   }, [slide])
 
   useEffect(() => {
 
-    console.log("get slide images")
+    // console.log("get slide images")
 
     const getImageSlide = async () => {
       const response = await fetch("https://it-marketing.website/vibe-backend/api/get-completed-images", {
@@ -38,10 +38,10 @@ export default function Home() {
       if (response.status !== 200) {
         throw slideImages.error || new Error(`Request failed with status ${response.status}`);
       }
-      console.log("slide images : ", slideImages)
+      // console.log("slide images : ", slideImages)
 
       const images = slideImages.images
-      console.log("image array : ", images)
+      // console.log("image array : ", images)
       setSlide(images)
       // return images 
     }
@@ -95,6 +95,14 @@ export default function Home() {
                       >
                         Get Started
                       </button></Link>
+
+                      {
+                        slide.map((index: React.Key | null | undefined , image: { id: string | number | boolean | React.ReactElement<any, string | React.JSXElementConstructor<any>> | React.ReactFragment | React.ReactPortal | null | undefined; })=> {
+                          (
+                            <h1 key={index}>{image.id}</h1>
+                          )
+                        })
+                      }
                   </div>
                 </div>
               </div>
