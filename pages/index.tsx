@@ -16,11 +16,11 @@ import React, { useEffect, useState } from 'react'
 
 export default function Home() {
 
-  const [slideImages, setSlideImages] = useState([])
+  const [slide, setSlide] = useState()
 
   useEffect(() => {
-    console.log(slideImages)
-  }, [slideImages])
+    console.log(slide)
+  }, [slide])
 
   useEffect(() => {
 
@@ -38,20 +38,36 @@ export default function Home() {
       if (response.status !== 200) {
         throw slideImages.error || new Error(`Request failed with status ${response.status}`);
       }
-      console.log("slide images : ",slideImages)
+      console.log("slide images : ", slideImages)
 
-      const images = slideImages.images.final_image
-      console.log("image array : ",images)
-      setSlideImages(images)
-      return images 
+      const images = slideImages.images
+      console.log("image array : ", images)
+      setSlide(images)
+      // return images 
     }
     getImageSlide()
-    
+
+
+
   }, [])
 
+  console.log("images : ", slide)
 
-  console.log("image array : ",slideImages)
 
+
+  // const ImagesList = ({ slide  }) => {
+  //   return (
+  //     <div>
+  //       {slide.map(image) => (
+  //         <img
+  //           key={image.id}
+  //           src={image.final_image}
+  //           alt={image.name}
+  //         />
+  //       ))}
+  //     </div>
+  //   );
+  // };
 
   return (
     <>
@@ -149,9 +165,8 @@ export default function Home() {
               <SwiperSlide>
                 <Image src="/sliderimg-3.png" alt="" width={250} height={250} className="img-fluid" />
               </SwiperSlide>
-              <SwiperSlide>
-                <Image src="/sliderimg-4.png" alt="" width={250} height={250} className="img-fluid" />
-              </SwiperSlide>
+
+
 
             </Swiper>
           </div>
