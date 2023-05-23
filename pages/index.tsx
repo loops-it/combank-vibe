@@ -40,8 +40,9 @@ export default function Home() {
       }
       console.log("slide images : ",slideImages)
 
-      const images = slideImages.images
+      const images = slideImages.images.final_image
       console.log("image array : ",images)
+      setSlideImages(images)
       return images 
     }
     getImageSlide()
@@ -49,7 +50,7 @@ export default function Home() {
   }, [])
 
 
-
+  console.log("image array : ",slideImages)
 
 
   return (
