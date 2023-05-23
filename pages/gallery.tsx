@@ -2,9 +2,27 @@ import Layout from '@/components/layout'
 import Image from 'next/image'
 import Link from 'next/link';
 import React, { useEffect, useState } from 'react'
+import axios from 'axios';
 
 const Gallery = () => {
     const [ambition, setAmbition] = useState('');
+    const [images, setImages] = useState([]);
+
+    useEffect(() => {
+    }, [images])
+
+    useEffect(() => {
+        const fetchImages = async () => {
+            try {
+                const response = await axios.get('https://it-marketing.website/vibe-backend/api/get-gallery-images');
+                setImages(response.data.images);
+            } catch (error) {
+                console.error('Error fetching images:', error);
+            }
+        };
+
+        fetchImages();
+    }, [])
 
 
     useEffect(() => {
@@ -24,46 +42,19 @@ const Gallery = () => {
                             <div className="d-flex flex-column justify-content-center align-items-center text-center mt-5 pt-5">
                                 <h2 className="text-white font-36">GALLERY</h2>
                                 <div className="row row-cols-1 row-cols-sm-2 row-cols-md-3 row-cols-lg-4 px-5">
-                                    <div className="p-2">
+
+                                    {images.map((image) => (
+                                        <div className="p-2" key={image.id}>
+                                        <Link href={"/shareImage"}>
+                                            <Image src={"https://it-marketing.website/vibe-backend/final_images/"+image.final_image} className='mb-5' alt='' width={200} height={200} ></Image>
+                                        </Link>
+                                    </div>
+                                    ))}
+                                    {/* <div className="p-2">
                                         <Link href={"/shareImage"}>
                                             <Image src={'/sliderimg-1.png'} className='mb-5' alt='' width={200} height={200} ></Image>
                                         </Link>
-                                    </div>
-                                    <div className="p-2">
-                                        <Link href={"/shareImage"}>
-                                            <Image src={'/sliderimg-2.png'} className='mb-5' alt='' width={200} height={200} ></Image>
-                                        </Link>
-                                    </div>
-                                    <div className="p-2">
-                                        <Link href={"/shareImage"}>
-                                            <Image src={'/sliderimg-4.png'} className='mb-5' alt='' width={200} height={200} ></Image>
-                                        </Link>
-                                    </div>
-                                    <div className="p-2">
-                                        <Link href={"/shareImage"}>
-                                            <Image src={'/sliderimg-3.png'} className='mb-5' alt='' width={200} height={200} ></Image>
-                                        </Link>
-                                    </div>
-                                    <div className="p-2">
-                                        <Link href={"/shareImage"}>
-                                            <Image src={'/sliderimg-2.png'} className='mb-5' alt='' width={200} height={200} ></Image>
-                                        </Link>
-                                    </div>
-                                    <div className="p-2">
-                                        <Link href={"/shareImage"}>
-                                            <Image src={'/sliderimg-4.png'} className='mb-5' alt='' width={200} height={200} ></Image>
-                                        </Link>
-                                    </div>
-                                    <div className="p-2">
-                                        <Link href={"/shareImage"}>
-                                            <Image src={'/sliderimg-1.png'} className='mb-5' alt='' width={200} height={200} ></Image>
-                                        </Link>
-                                    </div>
-                                    <div className="p-2">
-                                        <Link href={"/shareImage"}>
-                                            <Image src={'/sliderimg-3.png'} className='mb-5' alt='' width={200} height={200} ></Image>
-                                        </Link>
-                                    </div>
+                                    </div> */}
                                 </div>
                             </div>
                             <button className="submit-btn my-3 px-3" type="submit">NEXT</button>

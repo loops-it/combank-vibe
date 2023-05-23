@@ -4,26 +4,51 @@ import Link from 'next/link';
 import React, { useEffect, useState } from 'react'
 import { FaWhatsapp, FaFacebookF } from "react-icons/fa";
 import axios from 'axios';
+import { useRouter } from 'next/router';
+
 
 const ShareImage = () => {
     const [ambition, setAmbition] = useState('');
     const [images, setImages] = useState([]);
 
-  useEffect(() => {
-  }, [images])
+    const router = useRouter();
+    const { id } = router.query;
+    console.log(id)
 
-  useEffect(() => {
-    const fetchImages = async () => {
-      try {
-        const response = await axios.get('https://it-marketing.website/vibe-backend/api/get-completed-images');
-        setImages(response.data.images);
-      } catch (error) {
-        console.error('Error fetching images:', error);
-      }
-    };
 
-    fetchImages();
-  }, [])
+    useEffect(() => {
+    }, [images])
+
+    useEffect(() => {
+        
+    
+        const getImage = async()=>{
+            
+            const response = await fetch("https://it-marketing.website/vibe-backend/api/get-image-details", {
+                        method: "POST",
+                        headers: {
+                            "Content-Type": "application/json",
+                        },
+                        body: JSON.stringify(
+                            {
+                                image_id: id,
+                            }
+                        ),
+                    });
+    
+                    const dataBackend = await response.json();
+                    if (response.status !== 200) {
+                        throw dataBackend.error || new Error(`Request failed with status ${response.status}`);
+                    }
+
+                    setImages(dataBackend.image.final_image)
+                    console.log("imge : ", dataBackend)
+                    console.log(images)
+        }
+        if (id) {
+            getImage();
+          }
+    }, [id, images])
 
 
     useEffect(() => {
@@ -44,7 +69,7 @@ const ShareImage = () => {
                                 <h2 className="text-white font-36">GALLERY</h2>
                                 <div className="d-flex justify-content-center align-items-center px-5">
                                     <div className="image-share position-relative">
-                                        <Image src={'/sliderimg-1.png'} className='mb-5' style={{ borderRadius: "15px" }} alt='' width={200} height={200} ></Image>
+                                        <Image src={"https://it-marketing.website/vibe-backend/final_images/"+images} className='mb-5' style={{ borderRadius: "15px" }} alt='' width={200} height={200} ></Image>
                                         <div className="social-share d-flex flex-column p-2">
                                             <div className="icon-wrapper p-2 mb-2">
                                                 <FaFacebookF width={25} height={25} className='icon-share' />
