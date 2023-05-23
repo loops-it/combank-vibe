@@ -36,9 +36,15 @@ const UserDetails: NextPage<Props> = ({ dirs }) => {
     // get latest dir and update variables
     useEffect(() => {
 
-    }, [dirs, name, age, gender, country, ambition, email, phoneNo, aiMessage, resId, savedImageUrl])
+    }, [ name, age, gender, country, ambition, email, phoneNo, aiMessage, resId, savedImageUrl])
 
-    
+    useEffect(() => {
+        if (dirs.length > 0) {
+          const latestDir = dirs[dirs.length - 1];
+          setSavedImageUrl(`https://combank-vibe-bay.vercel.app/images/${latestDir}`);
+        }
+      }, [dirs]);
+    console.log("image data : ", savedImageUrl)
 
 
     // handle image upload
@@ -47,32 +53,30 @@ const UserDetails: NextPage<Props> = ({ dirs }) => {
             if (!selectedFile) return
             const formData = new FormData();
             formData.append("myImage", selectedFile);
-            const data  = await axios.post("/api/image", formData);
+            const { data } = await axios.post("/api/image", formData);
             console.log("image data : ", data)
+
+            if (data.done === "ok") {
+                // After successful upload, fetch the updated list of directories
+                setSavedImageUrl(data.imageUrl);
+                console.log("done--->ok");
+              }
         } catch (error: any) {
             console.log(error.response?.data)
         }
     }
 
+
+    // console.log("saved url of image : ", savedImageUrl)
+
     const handleFileChange = (event: React.ChangeEvent<HTMLInputElement>) => {
         if (event.target.files) {
-          const file = event.target.files[0];
-          setSelectedImage(URL.createObjectURL(file));
-          setSelectedFile(file);
+            const file = event.target.files[0];
+            setSelectedImage(URL.createObjectURL(file));
+            setSelectedFile(file);
         }
-      };
+    };
 
-    // get latest dir and update variables
-    useEffect(() => {
-
-        if (dirs.length > 0) {
-            const latestDir = dirs[dirs.length - 1];
-            setSavedImageUrl(`https://combank-vibe.vercel.app/images/${latestDir}`);
-            
-        }
-
-    }, [dirs, selectedFile])
-    
 
 
     // checkbox
@@ -84,13 +88,15 @@ const UserDetails: NextPage<Props> = ({ dirs }) => {
 
     const handleSubmit = async (event: { preventDefault: () => void; }) => {
         event.preventDefault();
-        await handleUpload()
 
         if (isChecked) {
             console.log('checked')
             setIsLoading(true);
+            handleUpload()
+
 
             try {
+
                 // data to backend
                 console.log(`data : ${name} , ${age} ,${gender} ,${email} , ${phoneNo}, ${ambition} , ${country}, ${savedImageUrl} `)
                 const response = await fetch("https://it-marketing.website/vibe-backend/api/save-customer-data", {
@@ -107,7 +113,7 @@ const UserDetails: NextPage<Props> = ({ dirs }) => {
                             ambition: ambition,
                             email: email,
                             phoneNo: phoneNo,
-                            savedImageUrl: "savedImageUrl",
+                            savedImageUrl: savedImageUrl,
                         }
                     ),
                 });
@@ -165,28 +171,28 @@ const UserDetails: NextPage<Props> = ({ dirs }) => {
             localStorage.setItem('aiMessage', aiMessage);
             localStorage.setItem('ambition', ambition);
 
-            const sendMessage = async (aiMessage: string)=>{
+            const sendMessage = async (aiMessage: string) => {
                 console.log("resId : ", resId)
-                    console.log("ai message : ", aiMessage)
+                console.log("ai message : ", aiMessage)
 
-                    const responseAiMessage = await fetch("https://it-marketing.website/vibe-backend/api/save-customer-ambition-response", {
-                        method: "POST",
-                        headers: {
-                            "Content-Type": "application/json",
-                        },
-                        body: JSON.stringify(
-                            {
-                                customerId: resId,
-                                ambitionResponse: aiMessage
-                            }
-                        ),
-                    });
+                const responseAiMessage = await fetch("https://it-marketing.website/vibe-backend/api/save-customer-ambition-response", {
+                    method: "POST",
+                    headers: {
+                        "Content-Type": "application/json",
+                    },
+                    body: JSON.stringify(
+                        {
+                            customerId: resId,
+                            ambitionResponse: aiMessage
+                        }
+                    ),
+                });
 
-                    const dataAiMessage = await responseAiMessage.json();
-                    if (responseAiMessage.status !== 200) {
-                        throw dataAiMessage.error || new Error(`Request failed with status ${responseAiMessage.status}`);
-                    }
-                    console.log(dataAiMessage)
+                const dataAiMessage = await responseAiMessage.json();
+                if (responseAiMessage.status !== 200) {
+                    throw dataAiMessage.error || new Error(`Request failed with status ${responseAiMessage.status}`);
+                }
+                console.log(dataAiMessage)
             }
             sendMessage(aiMessage)
         }
@@ -252,7 +258,7 @@ const UserDetails: NextPage<Props> = ({ dirs }) => {
                                                             }
                                                         </div>
                                                     </label>
-                                                    <Link href={savedImageUrl}>{selectedImage}</Link>
+                                                    {/* <Link href={savedImageUrl}>{selectedImage}</Link> */}
 
                                                     <label className='d-flex flex-row text-white text-start px-3 mt-2'>
                                                         <input

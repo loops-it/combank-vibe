@@ -39,13 +39,17 @@ const handler: NextApiHandler = async (req: NextApiRequest, res: NextApiResponse
         await fs.mkdir(path.join(process.cwd() + "/public", "/images"));
     }
 
-    // const { files } = await readFile(req, true);
-    // const latestDir = files.image[0].path.split("/").slice(-2, -1)[0];
-    // const uploadedImageUrl = `https://combank-vibe.vercel.app/images/${latestDir}`;
-    await readFile(req, true)
-    res.json({done: "ok"});
 
-    // res.json({ imageUrl: uploadedImageUrl });
+    await readFile(req, true)
+
+
+    const updatedDirs = await fs.readdir(path.join(process.cwd(), "/public/images"));
+  const latestDir = updatedDirs[updatedDirs.length - 1];
+  const uploadedImageUrl = `https://combank-vibe-bay.vercel.app/images/${latestDir}`;
+
+
+    res.json({done: "ok" , imageUrl: uploadedImageUrl});
+
 }
 
 export default handler
