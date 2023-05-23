@@ -20,7 +20,7 @@ export default function Home() {
   useEffect(() => {
 
     console.log("get slide images")
-    
+
     const getImageSlide = async () => {
       const response = await fetch("https://it-marketing.website/vibe-backend/api/get-completed-images", {
         method: "POST",
@@ -33,7 +33,6 @@ export default function Home() {
       if (response.status !== 200) {
         throw slideImages.error || new Error(`Request failed with status ${response.status}`);
       }
-      const resCustomerId = slideImages
       console.log("slide images : ",slideImages)
     }
     getImageSlide()
