@@ -81,7 +81,9 @@ const ShareImage = () => {
                                     </div>
                                 </div>
                             </div>
+                            <Link href={"https://it-marketing.website/vibe-backend/final_images/"+images} download className='d-flex justify-content-center align-items-center'>
                             <button className="submit-btn my-3 px-3" type="submit">DOWNLOAD</button>
+                            </Link>
                         </div>
                     </div>
                 </div>
