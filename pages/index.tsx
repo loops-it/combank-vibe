@@ -16,6 +16,11 @@ import React, { useEffect, useState } from 'react'
 
 export default function Home() {
 
+  const [slideImages, setSlideImages] = useState([])
+
+  useEffect(() => {
+    console.log(slideImages)
+  }, [slideImages])
 
   useEffect(() => {
 
@@ -34,10 +39,13 @@ export default function Home() {
         throw slideImages.error || new Error(`Request failed with status ${response.status}`);
       }
       console.log("slide images : ",slideImages)
+      setSlideImages(slideImages.final_image)
     }
     getImageSlide()
     
   }, [])
+
+
 
 
 
