@@ -10,7 +10,7 @@ const BotResponse = () => {
     const [aiMessage, setAiMessage] = useState('');
 
     useEffect(() => {
-        const storedAiMessage = localStorage.getItem('aiMessage');
+        const storedAiMessage = localStorage.getItem('aiGeneratedMessage');
         if (storedAiMessage) {
             setAiMessage(storedAiMessage);
             //   localStorage.removeItem('aiMessage');

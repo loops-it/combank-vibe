@@ -95,9 +95,9 @@ const UserDetails: NextPage<Props> = ({ dirs }) => {
 
     useEffect(() => {
         if (isUploadedDone && isChecked) {
-          const handleData = async()=>{
-            try {
-                console.log("done is checked", isUploadedDone);
+            const handleData = async () => {
+                try {
+                    console.log("done is checked", isUploadedDone);
                     // data to backend
                     console.log(`data : ${name} , ${age} ,${gender} ,${email} , ${phoneNo}, ${ambition} , ${country}, ${savedImageUrl} `)
                     const response = await fetch("https://it-marketing.website/vibe-backend/api/save-customer-data", {
@@ -118,7 +118,7 @@ const UserDetails: NextPage<Props> = ({ dirs }) => {
                             }
                         ),
                     });
-    
+
                     const dataBackend = await response.json();
                     if (response.status !== 200) {
                         throw dataBackend.error || new Error(`Request failed with status ${response.status}`);
@@ -126,7 +126,7 @@ const UserDetails: NextPage<Props> = ({ dirs }) => {
                     const resCustomerId = dataBackend.id
                     setResId(resCustomerId)
                     console.log("respons id : ", resCustomerId)
-    
+
                     // chat gpt generate
                     const responseOpenAi = await fetch("/api/generate", {
                         method: "POST",
@@ -142,64 +142,73 @@ const UserDetails: NextPage<Props> = ({ dirs }) => {
                             }
                         ),
                     });
-    
+
                     const data = await responseOpenAi.json();
                     if (responseOpenAi.status !== 200) {
                         throw data.error || new Error(`Request failed with status ${responseOpenAi.status}`);
                     }
                     setAiMessage(data.result)
                     console.log(aiMessage.toString())
-              } catch (error) {
-                console.error(error);
-              }
-          }
-          handleData()
+
+                    if (data.result) {
+                        console.log("message generted")
+
+                        const sendMessage = async (aiMessage: string) => {
+                            console.log("resId : ", resId)
+                            console.log("ai message : ", aiMessage)
+
+                            const responseAiMessage = await fetch("https://it-marketing.website/vibe-backend/api/save-customer-ambition-response", {
+                                method: "POST",
+                                headers: {
+                                    "Content-Type": "application/json",
+                                },
+                                body: JSON.stringify(
+                                    {
+                                        customerId: resId,
+                                        ambitionResponse: aiMessage
+                                    }
+                                ),
+                            });
+
+                            const dataAiMessage = await responseAiMessage.json();
+                            if (responseAiMessage.status !== 200) {
+                                throw dataAiMessage.error || new Error(`Request failed with status ${responseAiMessage.status}`);
+                            }
+                            console.log(dataAiMessage)
+                        }
+                        sendMessage(aiMessage)
+
+                        setIsLoading(false);
+                        router.push('/success');
+                    }
+
+                } catch (error) {
+                    console.error(error);
+                }
+            }
+            handleData()
         }
-        
-      }, [isUploadedDone, isChecked]);
+
+    }, [isUploadedDone, isChecked]);
 
 
+
+    // handle function
     const handleSubmit = async (event: { preventDefault: () => void; }) => {
         event.preventDefault();
         setIsLoading(true);
-        
+
         await handleUpload()
 
-        setIsLoading(false);
-        router.push('/success');
+
 
     };
 
     // store in local storage
     useEffect(() => {
         if (aiMessage) {
-            localStorage.setItem('aiMessage', aiMessage);
-            localStorage.setItem('ambition', ambition);
-
-            const sendMessage = async (aiMessage: string) => {
-                console.log("resId : ", resId)
-                console.log("ai message : ", aiMessage)
-
-                const responseAiMessage = await fetch("https://it-marketing.website/vibe-backend/api/save-customer-ambition-response", {
-                    method: "POST",
-                    headers: {
-                        "Content-Type": "application/json",
-                    },
-                    body: JSON.stringify(
-                        {
-                            customerId: resId,
-                            ambitionResponse: aiMessage
-                        }
-                    ),
-                });
-
-                const dataAiMessage = await responseAiMessage.json();
-                if (responseAiMessage.status !== 200) {
-                    throw dataAiMessage.error || new Error(`Request failed with status ${responseAiMessage.status}`);
-                }
-                console.log(dataAiMessage)
-            }
-            sendMessage(aiMessage)
+            localStorage.setItem('aiGeneratedMessage', aiMessage);
+            localStorage.setItem('userAmbition', ambition);
         }
     }, [aiMessage, ambition]);
 
@@ -223,14 +232,19 @@ const UserDetails: NextPage<Props> = ({ dirs }) => {
                                                 <form className=" col-12   px-2 px-lg-5 mt-2 mb-5 d-flex flex-column justify-content-center align-items-center">
                                                     <input type="text" required placeholder="Your Name" className="mb-2 py-3 px-3 w-100 transparent-input" onChange={(e) => setName(e.target.value)} />
                                                     <input type="text" required placeholder="Your Age" className="mb-2 py-3 px-3 w-100 transparent-input" onChange={(e) => setAge(e.target.value)} />
-                                                    <input type="text" required placeholder="Your Gender" className="mb-2 py-3 px-3 w-100 transparent-input" onChange={(e) => setGender(e.target.value)} />
+                                                    {/* <input type="text" required placeholder="Your Gender" className="mb-2 py-3 px-3 w-100 transparent-input" onChange={(e) => setGender(e.target.value)} /> */}
+                                                    <select className="mb-2 py-3 px-3 w-100 transparent-input" required onChange={(e) => setGender(e.target.value)}>
+                                                        <option value="Male">Male</option>
+                                                        <option value="Female">Female</option>
+                                                    </select>
                                                     <input type="text" required placeholder="Your Email" className="mb-2 py-3 px-3 w-100 transparent-input" onChange={(e) => setEmail(e.target.value)} />
                                                     <input type="text" required placeholder="Your Phone Number" className="mb-2 py-3 px-3 w-100 transparent-input" onChange={(e) => setPhoneNo(e.target.value)} />
                                                     <select className="mb-2 py-3 px-3 w-100 transparent-input" required onChange={(e) => setCountry(e.target.value)}>
                                                         <option value="">Select your country</option>
+                                                        <option value="Sri Lanka">Sri Lanka</option>
                                                         <option value="United States">United States</option>
                                                         <option value="Canada">Canada</option>
-                                                        <option value="Sri Lanka">Sri Lanka</option>
+                                                        <option value="India">India</option>
                                                         <option value="United Kingdom">United Kingdom</option>
                                                         <option value="Australia">Australia</option>
                                                         <option value="France">France</option>
@@ -244,7 +258,10 @@ const UserDetails: NextPage<Props> = ({ dirs }) => {
                                                         <option value="Doctor">Doctor</option>
                                                         <option value="Software Engineer">Software Engineer</option>
                                                         <option value="Lawyer">Lawyer</option>
-                                                        <option value="Teacher">Teacher</option>
+                                                        <option value="Actor">Actor</option>
+                                                        <option value="Professor">Professor</option>
+                                                        <option value="Politician">Politician</option>
+                                                        <option value="Singer">Singer</option>
                                                     </select>
 
                                                     <label htmlFor="upload-input" className="hidden-file-input d-flex justify-content-center">

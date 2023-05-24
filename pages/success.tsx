@@ -7,7 +7,7 @@ const Success = () => {
     const [ambition, setAmbition] = useState('');
 
     useEffect(() => {
-        const aiAmbitionString = localStorage.getItem('ambition');
+        const aiAmbitionString = localStorage.getItem('userAmbition');
         if (aiAmbitionString) {
             setAmbition(aiAmbitionString);
             // localStorage.removeItem('ambition');
