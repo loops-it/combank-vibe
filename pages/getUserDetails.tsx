@@ -150,12 +150,12 @@ const UserDetails: NextPage<Props> = ({ dirs }) => {
                     setAiMessage(data.result)
                     console.log(aiMessage.toString())
 
-                    if (data.result) {
+                    if (data.result && resCustomerId) {
                         console.log("message generted")
 
-                        const sendMessage = async (aiMessage: string) => {
-                            console.log("resId : ", resId)
-                            console.log("ai message : ", aiMessage)
+                        const sendMessage = async () => {
+                            console.log("resId : ", resCustomerId)
+                            console.log("ai message : ", data.result)
 
                             const responseAiMessage = await fetch("https://it-marketing.website/vibe-backend/api/save-customer-ambition-response", {
                                 method: "POST",
@@ -164,8 +164,8 @@ const UserDetails: NextPage<Props> = ({ dirs }) => {
                                 },
                                 body: JSON.stringify(
                                     {
-                                        customerId: resId,
-                                        ambitionResponse: aiMessage
+                                        customerId: resCustomerId,
+                                        ambitionResponse: data.result
                                     }
                                 ),
                             });
@@ -176,7 +176,7 @@ const UserDetails: NextPage<Props> = ({ dirs }) => {
                             }
                             console.log(dataAiMessage)
                         }
-                        sendMessage(aiMessage)
+                        sendMessage()
 
                         setIsLoading(false);
                         router.push('/success');
