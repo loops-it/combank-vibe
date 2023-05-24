@@ -234,6 +234,7 @@ const UserDetails: NextPage<Props> = ({ dirs }) => {
                                                     <input type="text" required placeholder="Your Age" className="mb-2 py-3 px-3 w-100 transparent-input" onChange={(e) => setAge(e.target.value)} />
                                                     {/* <input type="text" required placeholder="Your Gender" className="mb-2 py-3 px-3 w-100 transparent-input" onChange={(e) => setGender(e.target.value)} /> */}
                                                     <select className="mb-2 py-3 px-3 w-100 transparent-input" required onChange={(e) => setGender(e.target.value)}>
+                                                        <option value="">Select Option</option>
                                                         <option value="Male">Male</option>
                                                         <option value="Female">Female</option>
                                                     </select>
