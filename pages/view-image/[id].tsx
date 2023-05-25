@@ -70,14 +70,14 @@ const ShareImage = () => {
                                 <div className="d-flex justify-content-center align-items-center px-5">
                                     <div className="image-share position-relative">
                                         <Image src={"https://it-marketing.website/vibe-backend/final_images/"+images} className='mb-5' style={{ borderRadius: "15px" }} alt='' width={200} height={200} ></Image>
-                                        <div className="social-share d-flex flex-column p-2">
+                                        {/* <div className="social-share d-flex flex-column p-2">
                                             <div className="icon-wrapper p-2 mb-2">
                                                 <FaFacebookF width={25} height={25} className='icon-share' />
                                             </div>
                                             <div className="icon-wrapper p-2">
                                                 <FaWhatsapp width={25} height={25} className='icon-share' />
                                             </div>
-                                        </div>
+                                        </div> */}
                                     </div>
                                 </div>
                             </div>
