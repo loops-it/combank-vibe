@@ -273,7 +273,7 @@ option {
 }
 
 .submit-btn {
-  width: 150px;
+  width: 170px;
   border-radius: 8px;
   /* box-shadow: inset; */
   text-transform: uppercase;
@@ -558,7 +558,7 @@ button {
   }
 
   .hero-container {
-    height: 50vh;
+    height: 35vh;
   }
 
   .sub-container {
