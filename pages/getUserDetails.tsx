@@ -31,6 +31,8 @@ const UserDetails: NextPage<Props> = ({ dirs }) => {
     const [savedImageUrl, setSavedImageUrl] = useState("");
     const [selectedFile, setSelectedFile] = useState<File>();
 
+
+
     const [isUploaded, setIsUploaded] = useState(false);
     const [isUploadedDone, setIsUploadedDone] = useState(false);
     const router = useRouter();
@@ -81,11 +83,11 @@ const UserDetails: NextPage<Props> = ({ dirs }) => {
             if (!selectedFile) return
             const formData = new FormData();
             formData.append("myImage", selectedFile);
-            const { data } = await axios.post("/api/image", formData);
-            console.log("image data : ", data)
+            // const { data } = await axios.post("/api/image", formData);
+            // console.log("image data : ", data)
 
-            setSavedImageUrl(data.imageUrl);
-            setIsUploadedDone(true)
+            // setSavedImageUrl(data.imageUrl);
+            // setIsUploadedDone(true)
 
         } catch (error: any) {
             console.log(error.response?.data)
@@ -94,29 +96,136 @@ const UserDetails: NextPage<Props> = ({ dirs }) => {
 
 
     useEffect(() => {
-        if (isUploadedDone && isChecked) {
+        // if (isChecked) {
+        //     const handleData = async () => {
+
+        //         try {
+        //             if (!selectedFile) return
+        //             const formData = new FormData();
+        //             formData.append("myImage", selectedFile);
+        //             // data to backend
+        //             console.log(`data : ${name} , ${age} ,${gender} ,${email} , ${phoneNo}, ${ambition} , ${country}, ${formData} `)
+        //             const response = await fetch("https://it-marketing.website/vibe-backend/api/save-customer-data", {
+        //                 method: "POST",
+        //                 headers: {
+        //                     "Content-Type": "application/json",
+        //                 },
+        //                 body: JSON.stringify(
+        //                     {
+        //                         name: name,
+        //                         age: age,
+        //                         gender: gender,
+        //                         location: country,
+        //                         ambition: ambition,
+        //                         email: email,
+        //                         phoneNo: phoneNo,
+        //                         formData,
+        //                     }
+        //                 ),
+        //             });
+
+        //             const dataBackend = await response.json();
+        //             if (response.status !== 200) {
+        //                 throw dataBackend.error || new Error(`Request failed with status ${response.status}`);
+        //             }
+        //             const resCustomerId = dataBackend.id
+        //             setResId(resCustomerId)
+        //             console.log("respons id : ", resCustomerId)
+
+        //             // chat gpt generate
+        //             const responseOpenAi = await fetch("/api/generate", {
+        //                 method: "POST",
+        //                 headers: {
+        //                     "Content-Type": "application/json",
+        //                 },
+        //                 body: JSON.stringify(
+        //                     {
+        //                         name: name,
+        //                         age: age,
+        //                         location: country,
+        //                         ambition: ambition,
+        //                     }
+        //                 ),
+        //             });
+
+        //             const data = await responseOpenAi.json();
+        //             if (responseOpenAi.status !== 200) {
+        //                 throw data.error || new Error(`Request failed with status ${responseOpenAi.status}`);
+        //             }
+        //             setAiMessage(data.result)
+        //             console.log(aiMessage.toString())
+
+        //             if (data.result && resCustomerId) {
+        //                 console.log("message generted")
+
+        //                 const sendMessage = async () => {
+        //                     console.log("resId : ", resCustomerId)
+        //                     console.log("ai message : ", data.result)
+
+        //                     const responseAiMessage = await fetch("https://it-marketing.website/vibe-backend/api/save-customer-ambition-response", {
+        //                         method: "POST",
+        //                         headers: {
+        //                             "Content-Type": "application/json",
+        //                         },
+        //                         body: JSON.stringify(
+        //                             {
+        //                                 customerId: resCustomerId,
+        //                                 ambitionResponse: data.result
+        //                             }
+        //                         ),
+        //                     });
+
+        //                     const dataAiMessage = await responseAiMessage.json();
+        //                     if (responseAiMessage.status !== 200) {
+        //                         throw dataAiMessage.error || new Error(`Request failed with status ${responseAiMessage.status}`);
+        //                     }
+        //                     console.log(dataAiMessage)
+        //                 }
+        //                 sendMessage()
+
+        //                 setIsLoading(false);
+        //                 router.push('/success');
+        //             }
+
+        //         } catch (error) {
+        //             console.error(error);
+        //         }
+        //     }
+        //     handleData()
+        // }
+
+    }, [isUploadedDone, isChecked]);
+
+
+
+    // handle function
+    const handleSubmit = async (event: { preventDefault: () => void; }) => {
+        event.preventDefault();
+        setIsLoading(true);
+
+        // await handleUpload()
+
+        if (isChecked) {
             const handleData = async () => {
+
                 try {
-                    console.log("done is checked", isUploadedDone);
+                    if (!selectedFile) return
+                    const formData = new FormData();
+                    formData.append("savedImageUrl", selectedFile);
+                    formData.append("name", name);
+                    formData.append("age", age);
+                    formData.append("gender", gender);
+                    formData.append("location", country);
+                    formData.append("ambition", ambition);
+                    formData.append("email", email);
+                    formData.append("phoneNo", phoneNo); 
+
+                    console.log("form data : ",formData)
                     // data to backend
-                    console.log(`data : ${name} , ${age} ,${gender} ,${email} , ${phoneNo}, ${ambition} , ${country}, ${savedImageUrl} `)
+                    // console.log(`data : ${name} , ${age} ,${gender} ,${email} , ${phoneNo}, ${ambition} , ${country}, ${selectedFile} `)
                     const response = await fetch("https://it-marketing.website/vibe-backend/api/save-customer-data", {
                         method: "POST",
-                        headers: {
-                            "Content-Type": "application/json",
-                        },
-                        body: JSON.stringify(
-                            {
-                                name: name,
-                                age: age,
-                                gender: gender,
-                                location: country,
-                                ambition: ambition,
-                                email: email,
-                                phoneNo: phoneNo,
-                                savedImageUrl: savedImageUrl,
-                            }
-                        ),
+                        body: formData
                     });
 
                     const dataBackend = await response.json();
@@ -189,17 +298,6 @@ const UserDetails: NextPage<Props> = ({ dirs }) => {
             handleData()
         }
 
-    }, [isUploadedDone, isChecked]);
-
-
-
-    // handle function
-    const handleSubmit = async (event: { preventDefault: () => void; }) => {
-        event.preventDefault();
-        setIsLoading(true);
-
-        await handleUpload()
-
 
 
     };
@@ -229,7 +327,7 @@ const UserDetails: NextPage<Props> = ({ dirs }) => {
                                             <div className="d-flex flex-column justify-content-center align-items-center text-center mt-5 pt-5 transparent-select-box">
                                                 <div id="blur_background"></div>
                                                 <h2 className="text-white font-36">ENTER YOUR DETAILS</h2>
-                                                <form className=" col-12   px-2 px-lg-5 mt-2 mb-5 d-flex flex-column justify-content-center align-items-center">
+                                                <form onSubmit={handleSubmit} className=" col-12   px-2 px-lg-5 mt-2 mb-5 d-flex flex-column justify-content-center align-items-center">
                                                     <input type="text" required placeholder="Your Name" className="mb-2 py-3 px-3 w-100 transparent-input" onChange={(e) => setName(e.target.value)} />
                                                     <input type="text" required placeholder="Your Age" className="mb-2 py-3 px-3 w-100 transparent-input" onChange={(e) => setAge(e.target.value)} />
                                                     {/* <input type="text" required placeholder="Your Gender" className="mb-2 py-3 px-3 w-100 transparent-input" onChange={(e) => setGender(e.target.value)} /> */}
@@ -293,7 +391,7 @@ const UserDetails: NextPage<Props> = ({ dirs }) => {
                                                         <p>I agree to the terms and conditions</p>
                                                     </label>
 
-                                                    <button className="submit-btn text-center d-flex justify-content-center align-items-center my-3 px-3" onClick={handleSubmit}>
+                                                    <button className="submit-btn text-center d-flex justify-content-center align-items-center my-3 px-3" type='submit'>
                                                         {isLoading ? (
                                                             <LoadingDots color="#fff" />
                                                         ) : (
