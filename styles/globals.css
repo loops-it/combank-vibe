@@ -590,6 +590,9 @@ button {
     background-color: #0f012d !important;
     position: relative;
   }
+  .background_home {
+    padding-top: 50px !important;
+  }
 
 }
 
@@ -621,6 +624,9 @@ button {
 
   .option-font {
     font-size: 14px !important
+  }
+  .background_home {
+    padding-top: 0px !important;
   }
 }
 
