@@ -4,9 +4,16 @@ import Link from 'next/link';
 import React, { useEffect, useState } from 'react'
 import axios from 'axios';
 
+interface Image {
+    [x: string]: string;
+    id: string;
+}
+
+
 const Gallery = () => {
     const [ambition, setAmbition] = useState('');
-    const [images, setImages] = useState([]);
+    // const [images, setImages] = useState([]);
+    const [images, setImages] = useState<Image[]>([]);
 
     useEffect(() => {
     }, [images])
@@ -43,13 +50,16 @@ const Gallery = () => {
                                 <h2 className="text-white font-36">GALLERY</h2>
                                 <div className="row row-cols-1 row-cols-sm-2 row-cols-md-3 row-cols-lg-4 px-5">
 
-                                    {images.map((image) => (
+                                    {images.map((image: Image) => (
                                         <div className="p-2" key={image.id}>
-                                        <Link href={"/view-image/"+image.image_id}>
-                                            <Image src={"https://it-marketing.website/vibe-backend/final_images/"+image.final_image} className='mb-5' alt='' width={200} height={200} ></Image>
-                                        </Link>
-                                    </div>
+                                            <Link href={"/view-image/" + image.image_id}>
+                                                <Image src={"https://it-marketing.website/vibe-backend/final_images/" + image.final_image} className='mb-5' alt='' width={200} height={200} ></Image>
+                                            </Link>
+                                        </div>
                                     ))}
+
+
+
                                     {/* <div className="p-2">
                                         <Link href={"/shareImage"}>
                                             <Image src={'/sliderimg-1.png'} className='mb-5' alt='' width={200} height={200} ></Image>

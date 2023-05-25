@@ -12,12 +12,18 @@ import axios from 'axios';
 
 
 
+interface Image {
+  [x: string]: string;
+  id: string;
+  // Add other properties as needed
+}
 
 
 
 export default function Home() {
 
-  const [images, setImages] = useState([]);
+  // const [images, setImages] = useState([]);
+  const [images, setImages] = useState<Image[]>([]);
 
   useEffect(() => {
   }, [images])
@@ -112,13 +118,21 @@ export default function Home() {
                 },
               }}
             >
-              {images.map((image) => (
+              {/* {images.map((image) => (
                 <SwiperSlide key={image.id}>
                   <Link href={"/view-image/"+image.image_id}>
                   <Image src={"https://it-marketing.website/vibe-backend/final_images/"+image.final_image} alt="" width={250} height={250} className="img-fluid" />
                   </Link>
                 </SwiperSlide>
+              ))} */}
+              {images.map((image: Image) => (
+                <SwiperSlide key={image.id}>
+                  <Link href={"/view-image/" + image.image_id}>
+                    <Image src={"https://it-marketing.website/vibe-backend/final_images/" + image.final_image} alt="" width={250} height={250} className="img-fluid" />
+                  </Link>
+                </SwiperSlide>
               ))}
+
             </Swiper>
           </div>
         </div>
