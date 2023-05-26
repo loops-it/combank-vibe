@@ -337,7 +337,7 @@ const UserDetails: NextPage<Props> = ({ dirs }) => {
                                                     <input type="text" required placeholder="Your Email" className="mb-2 py-3 px-3 w-100 transparent-input" onChange={(e) => setEmail(e.target.value)} />
                                                     <input type="text" required placeholder="Your Phone Number" className="mb-2 py-3 px-3 w-100 transparent-input" onChange={(e) => setPhoneNo(e.target.value)} />
                                                     <select className="mb-2 py-3 px-3 w-100 transparent-input" required onChange={(e) => setCountry(e.target.value)}>
-                                                        <option value="">Select your country</option>
+                                                        <option value="">Select Your Country</option>
                                                         <option value="Sri Lanka">Sri Lanka</option>
                                                         <option value="United States">United States</option>
                                                         <option value="Canada">Canada</option>
@@ -351,7 +351,7 @@ const UserDetails: NextPage<Props> = ({ dirs }) => {
                                                     </select>
 
                                                     <select className="mb-2 py-3 px-3 w-100 transparent-input" required onChange={(e) => setAmbition(e.target.value)}>
-                                                        <option value="">Select your Ambition</option>
+                                                        <option value="">Select Your Ambition</option>
                                                         <option value="Doctor">Doctor</option>
                                                         <option value="Software Engineer">Software Engineer</option>
                                                         <option value="Lawyer">Lawyer</option>
@@ -386,7 +386,7 @@ const UserDetails: NextPage<Props> = ({ dirs }) => {
                                                             checked={isChecked}
                                                             onChange={handleCheckboxChange}
                                                         />
-                                                        <p>I agree to the terms and conditions</p>
+                                                        <p>I agree to the <Link href={"/terms-and-conditions"}>terms and conditions</Link></p>
                                                     </label>
 
                                                     <button className="submit-btn text-center d-flex justify-content-center align-items-center my-3 px-3" type='submit'>
