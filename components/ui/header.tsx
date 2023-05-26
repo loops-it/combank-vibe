@@ -13,7 +13,7 @@ const Navbar = () => {
 
           <div className="container-fluid">
             <Link className="navbar-brand m-0 p-0" href="/">
-              <Image src="/vibelogo.png" alt="logo"  className='header-logo-1' width={100} height={40} />
+              <Image src="/vibe logo.png" alt="logo"  className='header-logo-1' width={100} height={40} />
             </Link>
             <button className="navbar-toggler text-white" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNavAltMarkup"
               aria-controls="navbarNavAltMarkup" aria-expanded="false" aria-label="Toggle navigation" style={{border: "none !important"}}>
