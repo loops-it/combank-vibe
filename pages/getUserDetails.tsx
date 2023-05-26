@@ -29,10 +29,10 @@ const UserDetails: NextPage<Props> = ({ dirs }) => {
     const [fileSizeError, setFileSizeError] = useState("");
     const [aiMessage, setAiMessage] = useState('');
     const [resId, setResId] = useState('');
-    // const [selectedImage, setSelectedImage] = useState("");
+    const [selectedImage, setSelectedImage] = useState("");
     const [savedImageUrl, setSavedImageUrl] = useState("");
     const [selectedFile, setSelectedFile] = useState<File>();
-    const [selectedImage, setSelectedImage] = useState<null | string>(null);
+    // const [selectedImage, setSelectedImage] = useState<null | string>(null);
 
     const router = useRouter();
 
@@ -50,52 +50,53 @@ const UserDetails: NextPage<Props> = ({ dirs }) => {
     }, [dirs]);
 
 
-    // const handleFileChange = (event: React.ChangeEvent<HTMLInputElement>) => {
-    //     if (event.target.files) {
-    //         const file = event.target.files[0];
-    //         setSelectedImage(URL.createObjectURL(file));
-    //         setSelectedFile(file);
-    //     }
-    // };
-
     const handleFileChange = (event: React.ChangeEvent<HTMLInputElement>) => {
-        // if (event.target.files) {
-        //     const file = event.target.files[0];
-        //     setSelectedImage(URL.createObjectURL(file));
-        // }
         if (event.target.files) {
             const file = event.target.files[0];
-            if (file && file.size <= 3 * 1024 * 1024) { // 3MB limit
-                setSelectedImage(URL.createObjectURL(file));
-                setFileSizeError("");
-            } else {
-                //   console.log('File size limit exceeded (maximum 3MB)');
-                setFileSizeError("File size limit exceeded (maximum 3MB)");
-            }
-        }
-
-    };
-
-    const handleDragOver = (event: React.DragEvent<HTMLLabelElement>) => {
-        event.preventDefault();
-    };
-
-    const handleDrop = (event: React.DragEvent<HTMLLabelElement>) => {
-        event.preventDefault();
-        // if (event.dataTransfer.files.length > 0) {
-        //     const file = event.dataTransfer.files[0];
-        //     setSelectedImage(URL.createObjectURL(file));
-        // }
-        if (event.dataTransfer.files.length > 0) {
-            const file = event.dataTransfer.files[0];
-            if (file && file.size <= 3 * 1024 * 1024) { // 3MB limit
-                setSelectedImage(URL.createObjectURL(file));
-                setFileSizeError("");
-            } else {
-                setFileSizeError("File size limit exceeded (maximum 3MB)");
-            }
+            setSelectedImage(URL.createObjectURL(file));
+            setSelectedFile(file);
         }
     };
+
+    // const handleFileChange = (event: React.ChangeEvent<HTMLInputElement>) => {
+    //     // if (event.target.files) {
+    //     //     const file = event.target.files[0];
+    //     //     setSelectedImage(URL.createObjectURL(file));
+    //     // }
+    //     console.log("file Added change")
+    //     if (event.target.files) {
+    //         const file = event.target.files[0];
+    //         if (file && file.size <= 3 * 1024 * 1024) { // 3MB limit
+    //             setSelectedImage(URL.createObjectURL(file));
+    //             setFileSizeError("");
+    //         } else {
+    //             //   console.log('File size limit exceeded (maximum 3MB)');
+    //             setFileSizeError("File size limit exceeded (maximum 3MB)");
+    //         }
+    //     }
+
+    // };
+
+    // const handleDragOver = (event: React.DragEvent<HTMLLabelElement>) => {
+    //     event.preventDefault();
+    // };
+
+    // const handleDrop = (event: React.DragEvent<HTMLLabelElement>) => {
+    //     event.preventDefault();
+    //     // if (event.dataTransfer.files.length > 0) {
+    //     //     const file = event.dataTransfer.files[0];
+    //     //     setSelectedImage(URL.createObjectURL(file));
+    //     // }
+    //     if (event.dataTransfer.files.length > 0) {
+    //         const file = event.dataTransfer.files[0];
+    //         if (file && file.size <= 3 * 1024 * 1024) { // 3MB limit
+    //             setSelectedImage(URL.createObjectURL(file));
+    //             setFileSizeError("");
+    //         } else {
+    //             setFileSizeError("File size limit exceeded (maximum 3MB)");
+    //         }
+    //     }
+    // };
 
 
 
@@ -145,7 +146,7 @@ const UserDetails: NextPage<Props> = ({ dirs }) => {
     const handleSubmit = async (event: { preventDefault: () => void; }) => {
         event.preventDefault();
         setIsLoading(true);
-
+        console.log("file Added")
         // await handleUpload()
 
         if (isChecked) {
@@ -164,7 +165,7 @@ const UserDetails: NextPage<Props> = ({ dirs }) => {
 
                     console.log("form data : ", formData)
                     // data to backend
-                    // console.log(`data : ${name} , ${age} ,${gender} ,${email} , ${phoneNo}, ${ambition} , ${country}, ${selectedFile} `)
+                    console.log(`data : ${name} ,${gender} ,${email} , ${phoneNo}, ${ambition} , ${country}, ${selectedFile} `)
                     const response = await fetch("https://it-marketing.website/vibe-backend/api/save-customer-data", {
                         method: "POST",
                         body: formData
@@ -281,12 +282,14 @@ const UserDetails: NextPage<Props> = ({ dirs }) => {
                                                     <input type="text" required placeholder="Your Email" className="mb-2 py-3 px-3 w-100 transparent-input" onChange={(e) => {
                                                         setEmail(e.target.value);
                                                         setEmailError("");
-                                                    }} onBlur={(e) => validateEmail(e.target.value)} />
+                                                    }}  />
+                                                    {/* onBlur={(e) => validateEmail(e.target.value)} */}
                                                     {emailError && <span className="error-message text-danger bg-white px-2 py-1 rounded mb-2 mt-0" >{emailError}</span>}
                                                     <input type="text" required placeholder="Your Phone Number" className="mb-2 py-3 px-3 w-100 transparent-input" onChange={(e) => {
                                                         setPhoneNo(e.target.value);
                                                         setPhoneError("");
-                                                    }} onBlur={(e) => validatePhoneNumber(e.target.value)} />
+                                                    }}  />
+                                                    {/* onBlur={(e) => validatePhoneNumber(e.target.value)} */}
                                                     {phoneError && <span className="error-message text-danger bg-white px-2 py-1 rounded mb-2 mt-0">{phoneError}</span>}
                                                     <select className="mb-2 py-3 px-3 w-100 transparent-input" required onChange={(e) => setCountry(e.target.value)}>
                                                         <option value="">Select Your Country</option>
@@ -345,7 +348,7 @@ const UserDetails: NextPage<Props> = ({ dirs }) => {
                                                         <option value="Researcher">Researcher</option>
                                                     </select>
 
-                                                    {/* <label htmlFor="upload-input" className="hidden-file-input d-flex justify-content-center">
+                                                    <label htmlFor="upload-input" className="hidden-file-input d-flex justify-content-center">
                                                         <input
                                                             type="file"
                                                             id="upload-input"
@@ -361,8 +364,8 @@ const UserDetails: NextPage<Props> = ({ dirs }) => {
                                                                 )
                                                             }
                                                         </div>
-                                                    </label> */}
-                                                    <label
+                                                    </label>
+                                                    {/* <label
                                                         htmlFor="upload-input"
                                                         className="hidden-file-input d-flex justify-content-center"
                                                         onDragOver={handleDragOver}
@@ -388,7 +391,7 @@ const UserDetails: NextPage<Props> = ({ dirs }) => {
                                                                 )}
                                                             </div>
                                                         </div>
-                                                    </label>
+                                                    </label> */}
                                                     {fileSizeError && <span className="error-message text-danger bg-white px-2 py-1 rounded mb-2 mt-2">{fileSizeError}</span>}
 
                                                     <label className='d-flex flex-row text-white text-start px-3 mt-2'>
