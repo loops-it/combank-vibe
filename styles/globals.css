@@ -580,11 +580,11 @@ button {
   }
 
   .hero-container {
-    height: 35vh;
+    height: 30vh;
   }
 
   .sub-container {
-    height: 50vh;
+    height: auto;
   }
 
   .navbar {
