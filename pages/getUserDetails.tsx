@@ -213,7 +213,6 @@ const UserDetails: NextPage<Props> = ({ dirs }) => {
                     const formData = new FormData();
                     formData.append("savedImageUrl", selectedFile);
                     formData.append("name", name);
-                    formData.append("age", age);
                     formData.append("gender", gender);
                     formData.append("location", country);
                     formData.append("ambition", ambition);
