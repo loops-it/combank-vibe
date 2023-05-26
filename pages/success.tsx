@@ -13,7 +13,7 @@ const Success = () => {
             // localStorage.removeItem('ambition');
         }
     }, []);
-    
+
     return (
         <Layout>
             <div className="container-fluid m-0 p-0 background_success">
@@ -34,15 +34,17 @@ const Success = () => {
                                     height={107}
                                 ></Image>
 
-                                <p className="text-white font-18 mb-3">
+                                <Link href="/futureDescription" className='d-flex justify-content-center align-items-center'>
+                                    <button className="submit-btn-success my-3 px-3" type="submit">
+                                    Click to see your path to becoming a {ambition}
+                                    </button>
+                                </Link>
+
+                                {/* <p className="text-white font-18 mb-3">
                                     Do you like to see your path to becoming a {ambition}?
-                                </p>
+                                </p> */}
                             </div>
-                            <Link href="/futureDescription" className='d-flex justify-content-center align-items-center'>
-                                <button className="submit-btn my-3 px-3" type="submit" style={{width: "200px !important"}}>
-                                    Click To See
-                                </button>
-                            </Link>
+
                         </div>
                     </div>
                 </div>

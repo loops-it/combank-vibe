@@ -307,6 +307,23 @@ option {
   border: solid 1px #fff;
 }
 
+.submit-btn-success {
+  width: auto;
+  border-radius: 8px;
+  text-transform: none !important;
+  color: white;
+  background-color: #ed3434;
+  border: solid 1px #fff;
+  font-family: var(--font-family-Regular);
+  font-size: 22px;
+  line-height: 22px;
+}
+.submit-btn-success:hover {
+  color: #fff;
+  background-color: #ca1f1f;
+  border: solid 1px #fff;
+}
+
 .pages-height {
   height: 100vh;
 }
