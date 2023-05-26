@@ -299,7 +299,7 @@ const UserDetails: NextPage<Props> = ({ dirs }) => {
                                                             onChange={handleCheckboxChange}
                                                             required
                                                         />
-                                                        <p>I agree to the <Link href={"/terms-and-conditions"}>terms and conditions</Link></p>
+                                                        <p>I agree to the <Link style={{color: "#fff !important", textDecoration: "none !important"}} href={"/terms-and-conditions"}>terms and conditions</Link></p>
                                                     </label>
 
                                                     <button className="submit-btn text-center d-flex justify-content-center align-items-center my-3 px-3" type='submit'>
