@@ -18,7 +18,7 @@ const Navbar = () => {
             <button className="navbar-toggler text-white" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNavAltMarkup"
               aria-controls="navbarNavAltMarkup" aria-expanded="false" aria-label="Toggle navigation" style={{border: "none !important"}}>
               {/* <span className="bi bi-list toggle-icon-styles text-white" style={{color: "#fff !important"}}></span> */}
-              <FiMenu style={{color: "#fff !important"}} />
+              <FiMenu style={{color: "#fff !important", fontWeight:'100'}} />
             </button>
 
             <div className="collapse navbar-collapse" id="navbarNavAltMarkup">
