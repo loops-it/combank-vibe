@@ -52,7 +52,7 @@ export default function Home() {
 
             <div>
               <div className="home_slider_image_container image1 p-0 m-0 ">
-                <div className="d-flex justify-content-center align-items-center align-items-lg-end  w-100 hero-container">
+                <div className="d-flex justify-content-center align-items-end  w-100 hero-container">
                   <div className="d-flex flex-column justify-content-center align-items-center home-txt-container">
                     <Image src="/txt.png" alt="" className="hero-image mb-lg-2" width={800} height={600} />
                   </div>
