@@ -77,9 +77,9 @@ export default function Home() {
 
         <div className="container-fluid m-0 background_slider p-0">
           <div className="slider_container p-0 m-0 position-relative">
-            <a className="gallery_link" href="#">
+            <Link className="gallery_link" href="/gallery">
               <h3>Gallery</h3>
-            </a>
+            </Link>
             <Swiper
               modules={[Navigation, Pagination, Scrollbar, A11y]}
               loop={true}
