@@ -19,29 +19,26 @@ const UserDetails: NextPage<Props> = ({ dirs }) => {
     const [isChecked, setIsChecked] = useState(false);
     const [isLoading, setIsLoading] = useState(false);
     const [name, setName] = useState('');
-    const [age, setAge] = useState('');
     const [gender, setGender] = useState('');
     const [country, setCountry] = useState('');
     const [ambition, setAmbition] = useState('');
     const [email, setEmail] = useState('');
     const [phoneNo, setPhoneNo] = useState('');
+    const [emailError, setEmailError] = useState("");
+    const [phoneError, setPhoneError] = useState("");
     const [aiMessage, setAiMessage] = useState('');
     const [resId, setResId] = useState('');
     const [selectedImage, setSelectedImage] = useState("");
     const [savedImageUrl, setSavedImageUrl] = useState("");
     const [selectedFile, setSelectedFile] = useState<File>();
 
-
-
-    const [isUploaded, setIsUploaded] = useState(false);
-    const [isUploadedDone, setIsUploadedDone] = useState(false);
     const router = useRouter();
 
 
     // get latest dir and update variables
     useEffect(() => {
 
-    }, [name, age, gender, country, ambition, email, phoneNo, aiMessage, resId, savedImageUrl])
+    }, [name, gender, country, ambition, email, phoneNo, aiMessage, resId, savedImageUrl, isChecked])
 
     useEffect(() => {
         if (dirs.length > 0) {
@@ -50,12 +47,6 @@ const UserDetails: NextPage<Props> = ({ dirs }) => {
         }
     }, [dirs]);
 
-
-    // handle image upload
-
-
-
-    // console.log("saved url of image : ", savedImageUrl)
 
     const handleFileChange = (event: React.ChangeEvent<HTMLInputElement>) => {
         if (event.target.files) {
@@ -72,7 +63,25 @@ const UserDetails: NextPage<Props> = ({ dirs }) => {
         setIsChecked(event.target.checked);
     };
 
+    const validateEmail = (email: string) => {
+        const emailPattern = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
 
+        if (!emailPattern.test(email)) {
+            setEmailError("Invalid email address");
+        } else {
+            setEmailError("");
+        }
+    };
+
+    const validatePhoneNumber = (phoneNo: string) => {
+        const phonePattern = /^\d{10}$/;
+
+        if (!phonePattern.test(phoneNo)) {
+            setPhoneError("Invalid phone number");
+        } else {
+            setPhoneError("");
+        }
+    };
 
 
 
@@ -83,118 +92,11 @@ const UserDetails: NextPage<Props> = ({ dirs }) => {
             if (!selectedFile) return
             const formData = new FormData();
             formData.append("myImage", selectedFile);
-            // const { data } = await axios.post("/api/image", formData);
-            // console.log("image data : ", data)
-
-            // setSavedImageUrl(data.imageUrl);
-            // setIsUploadedDone(true)
 
         } catch (error: any) {
             console.log(error.response?.data)
         }
     }
-
-
-    useEffect(() => {
-        // if (isChecked) {
-        //     const handleData = async () => {
-
-        //         try {
-        //             if (!selectedFile) return
-        //             const formData = new FormData();
-        //             formData.append("myImage", selectedFile);
-        //             // data to backend
-        //             console.log(`data : ${name} , ${age} ,${gender} ,${email} , ${phoneNo}, ${ambition} , ${country}, ${formData} `)
-        //             const response = await fetch("https://it-marketing.website/vibe-backend/api/save-customer-data", {
-        //                 method: "POST",
-        //                 headers: {
-        //                     "Content-Type": "application/json",
-        //                 },
-        //                 body: JSON.stringify(
-        //                     {
-        //                         name: name,
-        //                         age: age,
-        //                         gender: gender,
-        //                         location: country,
-        //                         ambition: ambition,
-        //                         email: email,
-        //                         phoneNo: phoneNo,
-        //                         formData,
-        //                     }
-        //                 ),
-        //             });
-
-        //             const dataBackend = await response.json();
-        //             if (response.status !== 200) {
-        //                 throw dataBackend.error || new Error(`Request failed with status ${response.status}`);
-        //             }
-        //             const resCustomerId = dataBackend.id
-        //             setResId(resCustomerId)
-        //             console.log("respons id : ", resCustomerId)
-
-        //             // chat gpt generate
-        //             const responseOpenAi = await fetch("/api/generate", {
-        //                 method: "POST",
-        //                 headers: {
-        //                     "Content-Type": "application/json",
-        //                 },
-        //                 body: JSON.stringify(
-        //                     {
-        //                         name: name,
-        //                         age: age,
-        //                         location: country,
-        //                         ambition: ambition,
-        //                     }
-        //                 ),
-        //             });
-
-        //             const data = await responseOpenAi.json();
-        //             if (responseOpenAi.status !== 200) {
-        //                 throw data.error || new Error(`Request failed with status ${responseOpenAi.status}`);
-        //             }
-        //             setAiMessage(data.result)
-        //             console.log(aiMessage.toString())
-
-        //             if (data.result && resCustomerId) {
-        //                 console.log("message generted")
-
-        //                 const sendMessage = async () => {
-        //                     console.log("resId : ", resCustomerId)
-        //                     console.log("ai message : ", data.result)
-
-        //                     const responseAiMessage = await fetch("https://it-marketing.website/vibe-backend/api/save-customer-ambition-response", {
-        //                         method: "POST",
-        //                         headers: {
-        //                             "Content-Type": "application/json",
-        //                         },
-        //                         body: JSON.stringify(
-        //                             {
-        //                                 customerId: resCustomerId,
-        //                                 ambitionResponse: data.result
-        //                             }
-        //                         ),
-        //                     });
-
-        //                     const dataAiMessage = await responseAiMessage.json();
-        //                     if (responseAiMessage.status !== 200) {
-        //                         throw dataAiMessage.error || new Error(`Request failed with status ${responseAiMessage.status}`);
-        //                     }
-        //                     console.log(dataAiMessage)
-        //                 }
-        //                 sendMessage()
-
-        //                 setIsLoading(false);
-        //                 router.push('/success');
-        //             }
-
-        //         } catch (error) {
-        //             console.error(error);
-        //         }
-        //     }
-        //     handleData()
-        // }
-
-    }, [isUploadedDone, isChecked]);
 
 
 
@@ -217,9 +119,9 @@ const UserDetails: NextPage<Props> = ({ dirs }) => {
                     formData.append("location", country);
                     formData.append("ambition", ambition);
                     formData.append("email", email);
-                    formData.append("phoneNo", phoneNo); 
+                    formData.append("phoneNo", phoneNo);
 
-                    console.log("form data : ",formData)
+                    console.log("form data : ", formData)
                     // data to backend
                     // console.log(`data : ${name} , ${age} ,${gender} ,${email} , ${phoneNo}, ${ambition} , ${country}, ${selectedFile} `)
                     const response = await fetch("https://it-marketing.website/vibe-backend/api/save-customer-data", {
@@ -311,6 +213,9 @@ const UserDetails: NextPage<Props> = ({ dirs }) => {
 
 
 
+
+
+
     return (
         <>
             <Layout>
@@ -327,15 +232,21 @@ const UserDetails: NextPage<Props> = ({ dirs }) => {
                                                 <h2 className="text-white font-36">ENTER YOUR DETAILS</h2>
                                                 <form onSubmit={handleSubmit} className=" col-12   px-2 px-lg-5 mt-2 mb-5 d-flex flex-column justify-content-center align-items-center">
                                                     <input type="text" required placeholder="Your Name" className="mb-2 py-3 px-3 w-100 transparent-input" onChange={(e) => setName(e.target.value)} />
-                                                    {/* <input type="text" required placeholder="Your Age" className="mb-2 py-3 px-3 w-100 transparent-input" onChange={(e) => setAge(e.target.value)} /> */}
-                                                    {/* <input type="text" required placeholder="Your Gender" className="mb-2 py-3 px-3 w-100 transparent-input" onChange={(e) => setGender(e.target.value)} /> */}
                                                     <select className="mb-2 py-3 px-3 w-100 transparent-input" required onChange={(e) => setGender(e.target.value)}>
                                                         <option value="">Select Gender</option>
                                                         <option value="Male">Male</option>
                                                         <option value="Female">Female</option>
                                                     </select>
-                                                    <input type="text" required placeholder="Your Email" className="mb-2 py-3 px-3 w-100 transparent-input" onChange={(e) => setEmail(e.target.value)} />
-                                                    <input type="text" required placeholder="Your Phone Number" className="mb-2 py-3 px-3 w-100 transparent-input" onChange={(e) => setPhoneNo(e.target.value)} />
+                                                    <input type="text" required placeholder="Your Email" className="mb-2 py-3 px-3 w-100 transparent-input" onChange={(e) => {
+                                                        setEmail(e.target.value);
+                                                        setEmailError("");
+                                                    }} onBlur={(e) => validateEmail(e.target.value)} />
+                                                    {emailError && <span className="error-message text-danger bg-white px-2 py-1 rounded mb-2 mt-0" >{emailError}</span>}
+                                                    <input type="text" required placeholder="Your Phone Number" className="mb-2 py-3 px-3 w-100 transparent-input" onChange={(e) => {
+                                                        setPhoneNo(e.target.value);
+                                                        setPhoneError("");
+                                                    }} onBlur={(e) => validatePhoneNumber(e.target.value)} />
+                                                    {phoneError && <span className="error-message text-danger bg-white px-2 py-1 rounded mb-2 mt-0">{phoneError}</span>}
                                                     <select className="mb-2 py-3 px-3 w-100 transparent-input" required onChange={(e) => setCountry(e.target.value)}>
                                                         <option value="">Select Your Country</option>
                                                         <option value="Sri Lanka">Sri Lanka</option>
@@ -366,6 +277,7 @@ const UserDetails: NextPage<Props> = ({ dirs }) => {
                                                             type="file"
                                                             id="upload-input"
                                                             onChange={handleFileChange}
+                                                            required
                                                         />
                                                         <div className="d-flex rounded justify-content-center align-items-center curser-pointer" style={{ width: '200px' }}>
                                                             {
@@ -385,6 +297,7 @@ const UserDetails: NextPage<Props> = ({ dirs }) => {
                                                             className='checkbox-style me-2'
                                                             checked={isChecked}
                                                             onChange={handleCheckboxChange}
+                                                            required
                                                         />
                                                         <p>I agree to the <Link href={"/terms-and-conditions"}>terms and conditions</Link></p>
                                                     </label>

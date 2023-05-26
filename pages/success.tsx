@@ -39,7 +39,7 @@ const Success = () => {
                                 </p>
                             </div>
                             <Link href="/futureDescription" className='d-flex justify-content-center align-items-center'>
-                                <button className="submit-btn my-3 px-3" type="submit">
+                                <button className="submit-btn my-3 px-3" type="submit" style={{width: "200px !important"}}>
                                     Click To See
                                 </button>
                             </Link>
