@@ -26,11 +26,13 @@ const UserDetails: NextPage<Props> = ({ dirs }) => {
     const [phoneNo, setPhoneNo] = useState('');
     const [emailError, setEmailError] = useState("");
     const [phoneError, setPhoneError] = useState("");
+    const [fileSizeError, setFileSizeError] = useState("");
     const [aiMessage, setAiMessage] = useState('');
     const [resId, setResId] = useState('');
-    const [selectedImage, setSelectedImage] = useState("");
+    // const [selectedImage, setSelectedImage] = useState("");
     const [savedImageUrl, setSavedImageUrl] = useState("");
     const [selectedFile, setSelectedFile] = useState<File>();
+    const [selectedImage, setSelectedImage] = useState<null | string>(null);
 
     const router = useRouter();
 
@@ -48,11 +50,50 @@ const UserDetails: NextPage<Props> = ({ dirs }) => {
     }, [dirs]);
 
 
+    // const handleFileChange = (event: React.ChangeEvent<HTMLInputElement>) => {
+    //     if (event.target.files) {
+    //         const file = event.target.files[0];
+    //         setSelectedImage(URL.createObjectURL(file));
+    //         setSelectedFile(file);
+    //     }
+    // };
+
     const handleFileChange = (event: React.ChangeEvent<HTMLInputElement>) => {
+        // if (event.target.files) {
+        //     const file = event.target.files[0];
+        //     setSelectedImage(URL.createObjectURL(file));
+        // }
         if (event.target.files) {
             const file = event.target.files[0];
-            setSelectedImage(URL.createObjectURL(file));
-            setSelectedFile(file);
+            if (file && file.size <= 3 * 1024 * 1024) { // 3MB limit
+                setSelectedImage(URL.createObjectURL(file));
+                setFileSizeError("");
+            } else {
+                //   console.log('File size limit exceeded (maximum 3MB)');
+                setFileSizeError("File size limit exceeded (maximum 3MB)");
+            }
+        }
+
+    };
+
+    const handleDragOver = (event: React.DragEvent<HTMLLabelElement>) => {
+        event.preventDefault();
+    };
+
+    const handleDrop = (event: React.DragEvent<HTMLLabelElement>) => {
+        event.preventDefault();
+        // if (event.dataTransfer.files.length > 0) {
+        //     const file = event.dataTransfer.files[0];
+        //     setSelectedImage(URL.createObjectURL(file));
+        // }
+        if (event.dataTransfer.files.length > 0) {
+            const file = event.dataTransfer.files[0];
+            if (file && file.size <= 3 * 1024 * 1024) { // 3MB limit
+                setSelectedImage(URL.createObjectURL(file));
+                setFileSizeError("");
+            } else {
+                setFileSizeError("File size limit exceeded (maximum 3MB)");
+            }
         }
     };
 
@@ -272,7 +313,7 @@ const UserDetails: NextPage<Props> = ({ dirs }) => {
                                                         <option value="Singer">Singer</option>
                                                     </select>
 
-                                                    <label htmlFor="upload-input" className="hidden-file-input d-flex justify-content-center">
+                                                    {/* <label htmlFor="upload-input" className="hidden-file-input d-flex justify-content-center">
                                                         <input
                                                             type="file"
                                                             id="upload-input"
@@ -288,8 +329,35 @@ const UserDetails: NextPage<Props> = ({ dirs }) => {
                                                                 )
                                                             }
                                                         </div>
+                                                    </label> */}
+                                                    <label
+                                                        htmlFor="upload-input"
+                                                        className="hidden-file-input d-flex justify-content-center"
+                                                        onDragOver={handleDragOver}
+                                                        onDrop={handleDrop}
+                                                    >
+                                                        <input
+                                                            type="file"
+                                                            id="upload-input"
+                                                            onChange={handleFileChange}
+                                                            required
+                                                        />
+                                                        <div className="d-flex transparent-input flex-column justify-content-center align-items-center py-3">
+                                                            <div
+                                                                className="d-flex flex-column rounded justify-content-center align-items-center cursor-pointer"
+                                                                style={{ width: '200px' }}
+                                                            >
+                                                                {selectedImage ? (
+                                                                    <img src={selectedImage} alt="" />
+                                                                ) : (
+                                                                    <span className="text-white mb-2 py-3 px-3 w-100  d-flex flex-column justify-content-center align-items-center" style={{ height: "150px" }}>
+                                                                        <h5>Drop or Select Image</h5> <FiUpload style={{ width: '35px' }} />
+                                                                    </span>
+                                                                )}
+                                                            </div>
+                                                        </div>
                                                     </label>
-                                                    {/* <Link href={savedImageUrl}>{selectedImage}</Link> */}
+                                                    {fileSizeError && <span className="error-message text-danger bg-white px-2 py-1 rounded mb-2 mt-2">{fileSizeError}</span>}
 
                                                     <label className='d-flex flex-row text-white text-start px-3 mt-2'>
                                                         <input
@@ -299,7 +367,7 @@ const UserDetails: NextPage<Props> = ({ dirs }) => {
                                                             onChange={handleCheckboxChange}
                                                             required
                                                         />
-                                                        <p>I agree to the <Link style={{color: "#fff !important", textDecoration: "none !important"}} href={"/terms-and-conditions"}>terms and conditions</Link></p>
+                                                        <p>I agree to the <Link style={{ color: "#fff !important", textDecoration: "none !important" }} href={"/terms-and-conditions"}>terms and conditions</Link></p>
                                                     </label>
 
                                                     <button className="submit-btn text-center d-flex justify-content-center align-items-center my-3 px-3" type='submit'>
