@@ -63,9 +63,7 @@ export default function Home() {
                       Interested? Check the future you NOW
                     </h2>
                     <Link href={'/getUserDetails'} className='d-flex justify-content-center align-items-center'>
-                      <button type="submit" className="mt-3" style={{
-                        backgroundColor: "#ee3035", color: "#fff", fontWeight: "bold", height: "50px", border: "solid 1px #fff", borderRadius: '6px'
-                      }}
+                      <button type="submit" className="mt-3 submit-btn-home"
                       >
                         Get Started
                       </button></Link>

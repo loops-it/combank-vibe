@@ -57,17 +57,9 @@ const Gallery = () => {
                                             </Link>
                                         </div>
                                     ))}
-
-
-
-                                    {/* <div className="p-2">
-                                        <Link href={"/shareImage"}>
-                                            <Image src={'/sliderimg-1.png'} className='mb-5' alt='' width={200} height={200} ></Image>
-                                        </Link>
-                                    </div> */}
                                 </div>
                             </div>
-                            <button className="submit-btn my-3 px-3" type="submit">NEXT</button>
+                            {/* <button className="submit-btn my-3 px-3" type="submit">NEXT</button> */}
                         </div>
                     </div>
                 </div>

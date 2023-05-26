@@ -32,7 +32,7 @@ const BotResponse = () => {
                                                 <h2 className="text-white font-36">FUTURE YOU</h2>
                                                 <div className=" col-12   px-2 px-lg-5 mt-2 mb-5 d-flex flex-column justify-content-center align-items-center">
                                                     <p className="text-white font-18 mb-5">{aiMessage}</p>
-                                                    <Link href={'/userDetails'} className='d-flex justify-content-center align-items-center'>
+                                                    <Link href={'/getUserDetails'} className='d-flex justify-content-center align-items-center'>
                                                         <button className="submit-btn my-3 px-3">FINISH</button>
                                                     </Link>
                                                 </div>

@@ -18,7 +18,6 @@ export default async function (req: { body: {
   }
 
   const name = req.body.name || '';
-  const age = req.body.age || '';
   const location = req.body.location || '';
   const ambition = req.body.ambition || '';
 
@@ -28,8 +27,7 @@ export default async function (req: { body: {
     const completion = await openai.createCompletion({
       model: "text-davinci-003",
       prompt: `Friendly give addvise to following question:
-      My name is ${name} 
-      I'm ${age} years old. 
+      My name is ${name}. 
       I want to be ${ambition} of ${location}. 
       I live in ${location}.
       what should I do to achive my goal In my country. `,

@@ -245,7 +245,6 @@ const UserDetails: NextPage<Props> = ({ dirs }) => {
                         body: JSON.stringify(
                             {
                                 name: name,
-                                age: age,
                                 location: country,
                                 ambition: ambition,
                             }
@@ -329,10 +328,10 @@ const UserDetails: NextPage<Props> = ({ dirs }) => {
                                                 <h2 className="text-white font-36">ENTER YOUR DETAILS</h2>
                                                 <form onSubmit={handleSubmit} className=" col-12   px-2 px-lg-5 mt-2 mb-5 d-flex flex-column justify-content-center align-items-center">
                                                     <input type="text" required placeholder="Your Name" className="mb-2 py-3 px-3 w-100 transparent-input" onChange={(e) => setName(e.target.value)} />
-                                                    <input type="text" required placeholder="Your Age" className="mb-2 py-3 px-3 w-100 transparent-input" onChange={(e) => setAge(e.target.value)} />
+                                                    {/* <input type="text" required placeholder="Your Age" className="mb-2 py-3 px-3 w-100 transparent-input" onChange={(e) => setAge(e.target.value)} /> */}
                                                     {/* <input type="text" required placeholder="Your Gender" className="mb-2 py-3 px-3 w-100 transparent-input" onChange={(e) => setGender(e.target.value)} /> */}
                                                     <select className="mb-2 py-3 px-3 w-100 transparent-input" required onChange={(e) => setGender(e.target.value)}>
-                                                        <option value="">Select Option</option>
+                                                        <option value="">Select Gender</option>
                                                         <option value="Male">Male</option>
                                                         <option value="Female">Female</option>
                                                     </select>
