@@ -305,12 +305,44 @@ const UserDetails: NextPage<Props> = ({ dirs }) => {
                                                     <select className="mb-2 py-3 px-3 w-100 transparent-input" required onChange={(e) => setAmbition(e.target.value)}>
                                                         <option value="">Select Your Ambition</option>
                                                         <option value="Doctor">Doctor</option>
-                                                        <option value="Software Engineer">Software Engineer</option>
+                                                        <option value="Engineer">Engineer</option>
+                                                        <option value="Teacher">Teacher</option>
                                                         <option value="Lawyer">Lawyer</option>
-                                                        <option value="Actor">Actor</option>
-                                                        <option value="Professor">Professor</option>
-                                                        <option value="Politician">Politician</option>
-                                                        <option value="Singer">Singer</option>
+                                                        <option value="Nurse">Nurse</option>
+                                                        <option value="Accountant">Accountant</option>
+                                                        <option value="Architect">Architect</option>
+                                                        <option value="Scientist">Scientist</option>
+                                                        <option value="Programmer">Programmer</option>
+                                                        <option value="Chef">Chef</option>
+                                                        <option value="Artist">Artist</option>
+                                                        <option value="Musician">Musician</option>
+                                                        <option value="Writer">Writer</option>
+                                                        <option value="Designer">Designer</option>
+                                                        <option value="Police officer">Police officer</option>
+                                                        <option value="Firefighter">Firefighter</option>
+                                                        <option value="Pilot">Pilot</option>
+                                                        <option value="Psychologist">Psychologist</option>
+                                                        <option value="Social worker">Social worker</option>
+                                                        <option value="Veterinarian">Veterinarian</option>
+                                                        <option value="Dentist">Dentist</option>
+                                                        <option value="Pharmacist">Pharmacist</option>
+                                                        <option value="Journalist">Journalist</option>
+                                                        <option value="Economist">Economist</option>
+                                                        <option value="Entrepreneur">Entrepreneur</option>
+                                                        <option value="Financial advisor">Financial advisor</option>
+                                                        <option value="Marketing manager">Marketing manager</option>
+                                                        <option value="Consultant">Consultant</option>
+                                                        <option value="Electrician">Electrician</option>
+                                                        <option value="Plumber">Plumber</option>
+                                                        <option value="Carpenter">Carpenter</option>
+                                                        <option value="Mechanic">Mechanic</option>
+                                                        <option value="Farmer">Farmer</option>
+                                                        <option value="Librarian">Librarian</option>
+                                                        <option value="Athlete">Athlete</option>
+                                                        <option value="Photographer">Photographer</option>
+                                                        <option value="Filmmaker">Filmmaker</option>
+                                                        <option value="Fashion designer">Fashion designer</option>
+                                                        <option value="Researcher">Researcher</option>
                                                     </select>
 
                                                     {/* <label htmlFor="upload-input" className="hidden-file-input d-flex justify-content-center">
