@@ -40,7 +40,7 @@ const UserDetails: NextPage<Props> = ({ dirs }) => {
     // get latest dir and update variables
     useEffect(() => {
 
-    }, [name, gender, country, ambition, email, phoneNo, aiMessage, resId, savedImageUrl, isChecked])
+    }, [name, gender, country, ambition, email, phoneNo, aiMessage, resId, savedImageUrl, isChecked, selectedFile])
 
     useEffect(() => {
         if (dirs.length > 0) {
@@ -50,53 +50,47 @@ const UserDetails: NextPage<Props> = ({ dirs }) => {
     }, [dirs]);
 
 
-    const handleFileChange = (event: React.ChangeEvent<HTMLInputElement>) => {
-        if (event.target.files) {
-            const file = event.target.files[0];
-            setSelectedImage(URL.createObjectURL(file));
-            setSelectedFile(file);
-        }
-    };
-
     // const handleFileChange = (event: React.ChangeEvent<HTMLInputElement>) => {
-    //     // if (event.target.files) {
-    //     //     const file = event.target.files[0];
-    //     //     setSelectedImage(URL.createObjectURL(file));
-    //     // }
-    //     console.log("file Added change")
     //     if (event.target.files) {
     //         const file = event.target.files[0];
-    //         if (file && file.size <= 3 * 1024 * 1024) { // 3MB limit
-    //             setSelectedImage(URL.createObjectURL(file));
-    //             setFileSizeError("");
-    //         } else {
-    //             //   console.log('File size limit exceeded (maximum 3MB)');
-    //             setFileSizeError("File size limit exceeded (maximum 3MB)");
-    //         }
-    //     }
-
-    // };
-
-    // const handleDragOver = (event: React.DragEvent<HTMLLabelElement>) => {
-    //     event.preventDefault();
-    // };
-
-    // const handleDrop = (event: React.DragEvent<HTMLLabelElement>) => {
-    //     event.preventDefault();
-    //     // if (event.dataTransfer.files.length > 0) {
-    //     //     const file = event.dataTransfer.files[0];
-    //     //     setSelectedImage(URL.createObjectURL(file));
-    //     // }
-    //     if (event.dataTransfer.files.length > 0) {
-    //         const file = event.dataTransfer.files[0];
-    //         if (file && file.size <= 3 * 1024 * 1024) { // 3MB limit
-    //             setSelectedImage(URL.createObjectURL(file));
-    //             setFileSizeError("");
-    //         } else {
-    //             setFileSizeError("File size limit exceeded (maximum 3MB)");
-    //         }
+    //         setSelectedImage(URL.createObjectURL(file));
+    //         setSelectedFile(file);
     //     }
     // };
+
+    const handleFileChange = (event: React.ChangeEvent<HTMLInputElement>) => {
+        console.log("file Added change")
+        if (event.target.files) {
+            const file = event.target.files[0];
+            if (file && file.size <= 3 * 1024 * 1024) { // 3MB limit
+                setSelectedImage(URL.createObjectURL(file));
+                setSelectedFile(file); 
+                setFileSizeError("");
+            } else {
+                setFileSizeError("File size limit exceeded (maximum 3MB)");
+            }
+        }
+
+    };
+
+    const handleDragOver = (event: React.DragEvent<HTMLLabelElement>) => {
+        event.preventDefault();
+    };
+
+    const handleDrop = (event: React.DragEvent<HTMLLabelElement>) => {
+        event.preventDefault();
+        // event.stopPropagation();
+        if (event.dataTransfer.files.length > 0) {
+            const file = event.dataTransfer.files[0];
+            if (file && file.size <= 3 * 1024 * 1024) { // 3MB limit
+                setSelectedImage(URL.createObjectURL(file));
+                setSelectedFile(file); 
+                setFileSizeError("");
+            } else {
+                setFileSizeError("File size limit exceeded (maximum 3MB)");
+            }
+        }
+    };
 
 
 
@@ -348,7 +342,7 @@ const UserDetails: NextPage<Props> = ({ dirs }) => {
                                                         <option value="Researcher">Researcher</option>
                                                     </select>
 
-                                                    <label htmlFor="upload-input" className="hidden-file-input d-flex justify-content-center">
+                                                    {/* <label htmlFor="upload-input" className="hidden-file-input d-flex justify-content-center">
                                                         <input
                                                             type="file"
                                                             id="upload-input"
@@ -364,8 +358,8 @@ const UserDetails: NextPage<Props> = ({ dirs }) => {
                                                                 )
                                                             }
                                                         </div>
-                                                    </label>
-                                                    {/* <label
+                                                    </label> */}
+                                                    <label
                                                         htmlFor="upload-input"
                                                         className="hidden-file-input d-flex justify-content-center"
                                                         onDragOver={handleDragOver}
@@ -375,7 +369,6 @@ const UserDetails: NextPage<Props> = ({ dirs }) => {
                                                             type="file"
                                                             id="upload-input"
                                                             onChange={handleFileChange}
-                                                            required
                                                         />
                                                         <div className="d-flex transparent-input flex-column justify-content-center align-items-center py-3">
                                                             <div
@@ -391,7 +384,7 @@ const UserDetails: NextPage<Props> = ({ dirs }) => {
                                                                 )}
                                                             </div>
                                                         </div>
-                                                    </label> */}
+                                                    </label>
                                                     {fileSizeError && <span className="error-message text-danger bg-white px-2 py-1 rounded mb-2 mt-2">{fileSizeError}</span>}
 
                                                     <label className='d-flex flex-row text-white text-start px-3 mt-2'>
