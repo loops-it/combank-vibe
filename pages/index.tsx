@@ -126,7 +126,7 @@ export default function Home() {
               {images.map((image: Image) => (
                 <SwiperSlide key={image.id}>
                   <Link href={"/view-image/" + image.image_id}>
-                    <Image src={"https://it-marketing.website/vibe-backend/final_images/" + image.final_image} alt="" width={250} height={250} className="img-fluid" />
+                    <Image src={"https://it-marketing.website/vibe-backend-v2/final_images/" + image.final_image} alt="" width={250} height={250} className="img-fluid" />
                   </Link>
                 </SwiperSlide>
               ))}
