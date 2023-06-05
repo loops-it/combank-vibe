@@ -17,6 +17,8 @@ const BotResponse = () => {
         }
     }, []);
 
+    const lines = aiMessage.split('\n');
+
     return (
         <>
             <Layout>
@@ -31,7 +33,12 @@ const BotResponse = () => {
                                             <div className="d-flex flex-column justify-content-center align-items-center text-center mt-5 pt-5 transparent-select-box-future ">
                                                 <h2 className="text-white font-36">FUTURE YOU</h2>
                                                 <div className=" col-12   px-2 px-lg-5 mt-2 mb-5 d-flex flex-column justify-content-center align-items-center">
-                                                    <p className="text-white font-18 mb-5">{aiMessage}</p>
+                                                    {/* <p className="text-white font-18 mb-5">{aiMessage}</p> */}
+                                                    <ul style={{listStyle:"none"}} className='text-start'>
+                                                        {lines.map((line, index) => (
+                                                            line.trim() !== "" && <li className="text-white font-18 mb-3" key={index}>{line}</li>
+                                                        ))}
+                                                    </ul>
                                                     <Link href={'/'} className='d-flex justify-content-center align-items-center'>
                                                         <button className="submit-btn my-3 px-3">FINISH</button>
                                                     </Link>

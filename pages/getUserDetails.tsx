@@ -64,7 +64,7 @@ const UserDetails: NextPage<Props> = ({ dirs }) => {
             const file = event.target.files[0];
             if (file && file.size <= 3 * 1024 * 1024) { // 3MB limit
                 setSelectedImage(URL.createObjectURL(file));
-                setSelectedFile(file); 
+                setSelectedFile(file);
                 setFileSizeError("");
             } else {
                 setFileSizeError("File size limit exceeded (maximum 3MB)");
@@ -84,7 +84,7 @@ const UserDetails: NextPage<Props> = ({ dirs }) => {
             const file = event.dataTransfer.files[0];
             if (file && file.size <= 3 * 1024 * 1024) { // 3MB limit
                 setSelectedImage(URL.createObjectURL(file));
-                setSelectedFile(file); 
+                setSelectedFile(file);
                 setFileSizeError("");
             } else {
                 setFileSizeError("File size limit exceeded (maximum 3MB)");
@@ -276,7 +276,7 @@ const UserDetails: NextPage<Props> = ({ dirs }) => {
                                                     <input type="text" required placeholder="Your Email" className="mb-2 py-3 px-3 w-100 transparent-input" onChange={(e) => {
                                                         setEmail(e.target.value);
                                                         setEmailError("");
-                                                    }}  onBlur={(e) => validateEmail(e.target.value)} />
+                                                    }} onBlur={(e) => validateEmail(e.target.value)} />
                                                     {/* onBlur={(e) => validateEmail(e.target.value)} */}
                                                     {emailError && <span className="error-message text-danger bg-white px-2 py-1 rounded mb-2 mt-0" >{emailError}</span>}
                                                     <input type="text" required placeholder="Your Phone Number" className="mb-2 py-3 px-3 w-100 transparent-input" onChange={(e) => {
@@ -298,8 +298,8 @@ const UserDetails: NextPage<Props> = ({ dirs }) => {
                                                         <option value="Japan">Japan</option>
                                                         <option value="China">China</option>
                                                     </select>
-
-                                                    <select className="mb-2 py-3 px-3 w-100 transparent-input" required onChange={(e) => setAmbition(e.target.value)}>
+                                                    <input type="text" required placeholder="Your Ambition" spellCheck="true" className="mb-2 py-3 px-3 w-100 transparent-input" onChange={(e) => setAmbition(e.target.value)} />
+                                                    {/* <select className="mb-2 py-3 px-3 w-100 transparent-input" required onChange={(e) => setAmbition(e.target.value)}>
                                                         <option value="">Select Your Ambition</option>
                                                         <option value="Doctor">Doctor</option>
                                                         <option value="Engineer">Engineer</option>
@@ -340,7 +340,7 @@ const UserDetails: NextPage<Props> = ({ dirs }) => {
                                                         <option value="Filmmaker">Filmmaker</option>
                                                         <option value="Fashion designer">Fashion designer</option>
                                                         <option value="Researcher">Researcher</option>
-                                                    </select>
+                                                    </select> */}
 
                                                     {/* <label htmlFor="upload-input" className="hidden-file-input d-flex justify-content-center">
                                                         <input

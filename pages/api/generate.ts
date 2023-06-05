@@ -1,3 +1,4 @@
+/* eslint-disable import/no-anonymous-default-export */
 import { Configuration, OpenAIApi } from "openai";
 
 const configuration = new Configuration({
@@ -26,9 +27,9 @@ export default async function (req: { body: {
   try {
     const completion = await openai.createCompletion({
       model: "text-davinci-003",
-      prompt: `Friendly give addvise to following question:
+      prompt: `Friendly give step by step addvise to following question:
       My name is ${name}. 
-      I want to be ${ambition} of ${location}. 
+      I want to be ${ambition} in ${location}. 
       I live in ${location}.
       what should I do to achive my goal In my country. `,
       temperature: 0.6,
@@ -43,4 +44,24 @@ export default async function (req: { body: {
         }
       });
   }
+  // try {
+  //   const completion = await openai.createCompletion({
+  //     model: "text-davinci-003",
+  //     prompt: `Friendly give step by step addvise to following question:
+  //     My name is Thinu. 
+  //     I want to be software engineer in Sri Lanka. 
+  //     I live in Sri Lanka.
+  //     what should I do to achive my goal In my country. `,
+  //     temperature: 0.6,
+  //     max_tokens: 250
+  //   });
+  //   console.log("AI : ", completion.data.choices[0].text)
+  //   res.status(200).json({ result: completion.data.choices[0].text });
+  // } catch(error) {
+  //     res.status(500).json({
+  //       error: {
+  //         message: 'An error occurred during your request.',
+  //       }
+  //     });
+  // }
 }
