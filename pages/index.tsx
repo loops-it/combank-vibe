@@ -77,7 +77,7 @@ export default function Home() {
 
         <div className="container-fluid m-0 background_slider p-0">
           <div className="slider_container p-0 m-0 position-relative">
-            <Link className="gallery_link" href="/gallery">
+            <Link className="gallery_link" href="#">
               <h3>Gallery</h3>
             </Link>
             <Swiper

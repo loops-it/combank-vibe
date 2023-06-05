@@ -24,7 +24,7 @@ const Navbar = () => {
             <div className="collapse navbar-collapse" id="navbarNavAltMarkup">
               <div className="navbar-nav ms-auto justify-content-lg-end">
                 <Link className="nav-link px-4" aria-current="page" href="/">Home</Link>
-                <Link className="nav-link px-4 curser-pointer" href="/gallery">Gallery</Link>
+                {/* <Link className="nav-link px-4 curser-pointer" href="/gallery">Gallery</Link> */}
               </div>
             </div>
           </div>
