@@ -82,7 +82,7 @@ const UserDetails: NextPage<Props> = ({ dirs }) => {
         // event.stopPropagation();
         if (event.dataTransfer.files.length > 0) {
             const file = event.dataTransfer.files[0];
-            if (file && file.size <= 3 * 1024 * 1024) { // 3MB limit
+            if (file && file.size <= 5 * 1024 * 1024) { // 5MB limit
                 setSelectedImage(URL.createObjectURL(file));
                 setSelectedFile(file);
                 setFileSizeError("");
