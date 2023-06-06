@@ -16,11 +16,11 @@ export default function Footer() {
         <Link href={"https://twitter.com/ComBank_LK"}><Image width={30} height={30} src="/twitter.png" className="mx-2 border-radious-50 footer-icons" alt="" /></Link>
       </div>
       <div className="d-flex flex-row text-center icon_wrapper py-3 pb-lg-1">
-        <a href="#">
-          <p className="text-white mb-0" style={{fontSize: "18px"}}>
-            Terms and Conditions
-          </p>
-        </a>
+        {/* <a href="#"> */}
+          {/* <p className="text-white mb-0" style={{fontSize: "18px"}}> */}
+          <Link href={"/terms-and-conditions"} className="text-white mb-0" style={{textDecoration: "none",fontSize: "18px"}}>Terms and Conditions</Link>
+          {/* </p> */}
+        {/* </a> */}
       </div>
     </div>
   </div>
