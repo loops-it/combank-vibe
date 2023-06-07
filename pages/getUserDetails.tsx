@@ -444,7 +444,7 @@ const UserDetails: NextPage<Props> = ({ dirs }) => {
                                 ) : (
                                   <span
                                     className="text-white mb-2 py-3 px-3 w-100  d-flex flex-column justify-content-center align-items-center"
-                                    style={{ height: '150px' }}
+                                    style={{ height: '200px' }}
                                   >
                                     <h5>Drop or Select Image</h5>{' '}
                                     <p style={{width: "300px !important"}}>(Upload a clear image of you where your features are clearly shown)</p>{' '}
