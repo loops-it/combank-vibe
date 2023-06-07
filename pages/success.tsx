@@ -23,8 +23,7 @@ const Success = () => {
                             <div className="d-flex flex-column justify-content-center align-items-center text-center mt-5 pt-5 transparent-select-box">
                                 <h2 className="text-white font-36">Thank you</h2>
                                 <p className="text-white font-18 mb-3">
-                                    Your Image is now being generated and you will receive it
-                                    shortly via email and Whatsapp
+                                A future version of you will be shared to your email or WhatsApp number shortly
                                 </p>
                                 <Image
                                     src={'/correct.png'}

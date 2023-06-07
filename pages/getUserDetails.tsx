@@ -314,7 +314,7 @@ const UserDetails: NextPage<Props> = ({ dirs }) => {
                           <input
                             type="text"
                             required
-                            placeholder="Your Phone Number"
+                            placeholder="Your WhatsApp Phone Number"
                             className="mb-2 py-3 px-3 w-100 transparent-input"
                             onChange={(e) => {
                               setPhoneNo(e.target.value);
