@@ -1,3 +1,4 @@
+/* eslint-disable react/jsx-no-undef */
 import Layout from '@/components/layout';
 import LoadingDots from '@/components/ui/LoadingDots';
 import { useRouter } from 'next/router';
@@ -7,6 +8,7 @@ import fs from 'fs/promises';
 import path from 'path';
 import { FiUpload } from 'react-icons/fi';
 import Link from 'next/link';
+import Image from 'next/image';
 
 interface Props {
   dirs: string[];
@@ -423,7 +425,9 @@ const UserDetails: NextPage<Props> = ({ dirs }) => {
                                                             }
                                                         </div>
                                                     </label> */}
-                          <label
+                          <div className="d-flex flex-column-reverse flex-lg-row">
+                            <div className="col-12 col-lg-9">
+                            <label
                             htmlFor="upload-input"
                             className="hidden-file-input d-flex justify-content-center"
                             onDragOver={handleDragOver}
@@ -454,6 +458,12 @@ const UserDetails: NextPage<Props> = ({ dirs }) => {
                               </div>
                             </div>
                           </label>
+                            </div>
+                            <div className="col-12 col-lg-3 p-2">
+                            <Image src="/sample.jpg" className='' alt='' width={100} height={100} ></Image>
+                            <p className='mb-0 text-white text-center'>Sample Image</p>
+                            </div>
+                          </div>
                           {fileSizeError && (
                             <span className="error-message text-danger bg-white px-2 py-1 rounded mb-2 mt-2">
                               {fileSizeError}
