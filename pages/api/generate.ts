@@ -33,7 +33,7 @@ export default async function (req: { body: {
       I live in ${location}.
       what should I do to achive my goal In my country. `,
       temperature: 0.6,
-      max_tokens: 250
+      max_tokens: 512
     });
     console.log("AI : ", completion.data.choices[0].text)
     res.status(200).json({ result: completion.data.choices[0].text });
