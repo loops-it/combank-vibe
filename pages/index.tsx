@@ -31,7 +31,7 @@ export default function Home() {
   useEffect(() => {
     const fetchImages = async () => {
       try {
-        const response = await axios.get('https://it-marketing.website/vibe-backend/api/get-completed-images');
+        const response = await axios.get('https://dashboard.yourvibe.lk/api/get-completed-images');
         setImages(response.data.images);
       } catch (error) {
         console.error('Error fetching images:', error);
@@ -126,7 +126,7 @@ export default function Home() {
               {images.map((image: Image) => (
                 <SwiperSlide key={image.id}>
                   <Link href={"/view-image/" + image.image_id}>
-                    <Image src={"https://it-marketing.website/vibe-backend-v2/final_images/" + image.final_image} alt="" width={250} height={250} className="img-fluid" />
+                    <Image src={"https://dashboard2.yourvibe.lk/final_images/" + image.final_image} alt="" width={250} height={250} className="img-fluid" />
                   </Link>
                 </SwiperSlide>
               ))}

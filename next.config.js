@@ -7,7 +7,7 @@ const nextConfig = {
   //   return config;
   // },
   images: {
-    domains: ['localhost','cdn.discordapp.com','it-marketing.website']
+    domains: ['localhost','cdn.discordapp.com','dashboard.yourvibe.lk','dashboard2.yourvibe.lk']
   }
   
 };

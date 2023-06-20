@@ -167,7 +167,7 @@ const UserDetails: NextPage<Props> = ({ dirs }) => {
             `data : ${name} ,${gender} ,${email} , ${phoneNo}, ${ambition} , ${country}, ${selectedFile} `,
           );
           const response = await fetch(
-            'https://it-marketing.website/vibe-backend/api/save-customer-data',
+            'https://dashboard.yourvibe.lk/api/save-customer-data',
             {
               method: 'POST',
               body: formData,
@@ -216,7 +216,7 @@ const UserDetails: NextPage<Props> = ({ dirs }) => {
               console.log('ai message : ', data.result);
 
               const responseAiMessage = await fetch(
-                'https://it-marketing.website/vibe-backend/api/save-customer-ambition-response',
+                'https://dashboard.yourvibe.lk/api/save-customer-ambition-response',
                 {
                   method: 'POST',
                   headers: {

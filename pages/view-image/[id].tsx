@@ -24,7 +24,7 @@ const ShareImage = () => {
     
         const getImage = async()=>{
             
-            const response = await fetch("https://it-marketing.website/vibe-backend/api/get-image-details", {
+            const response = await fetch("https://dashboard.yourvibe.lk/api/get-image-details", {
                         method: "POST",
                         headers: {
                             "Content-Type": "application/json",
@@ -69,7 +69,7 @@ const ShareImage = () => {
                                 <h2 className="text-white font-36">GALLERY</h2>
                                 <div className="d-flex justify-content-center align-items-center px-5">
                                     <div className="image-share position-relative">
-                                        <Image src={"https://it-marketing.website/vibe-backend-v2/final_images/"+images} className='mb-5' style={{ borderRadius: "15px" }} alt='' width={200} height={200} ></Image>
+                                        <Image src={"https://dashboard2.yourvibe.lk/final_images/"+images} className='mb-5' style={{ borderRadius: "15px" }} alt='' width={200} height={200} ></Image>
                                         {/* <div className="social-share d-flex flex-column p-2">
                                             <div className="icon-wrapper p-2 mb-2">
                                                 <FaFacebookF width={25} height={25} className='icon-share' />
@@ -81,7 +81,7 @@ const ShareImage = () => {
                                     </div>
                                 </div>
                             </div>
-                            <Link href={"https://it-marketing.website/vibe-backend-v2/final_images/"+images} download className='d-flex justify-content-center align-items-center'>
+                            <Link href={"https://dashboard2.yourvibe.lk/final_images/"+images} download className='d-flex justify-content-center align-items-center'>
                             <button className="submit-btn my-3 px-3" type="submit">DOWNLOAD</button>
                             </Link>
                         </div>

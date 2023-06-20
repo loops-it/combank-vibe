@@ -21,7 +21,7 @@ const Gallery = () => {
     useEffect(() => {
         const fetchImages = async () => {
             try {
-                const response = await axios.get('https://it-marketing.website/vibe-backend/api/get-gallery-images');
+                const response = await axios.get('https://dashboard.yourvibe.lk/api/get-gallery-images');
                 setImages(response.data.images);
             } catch (error) {
                 console.error('Error fetching images:', error);
@@ -53,7 +53,7 @@ const Gallery = () => {
                                     {images.map((image: Image) => (
                                         <div className="p-2" key={image.id}>
                                             <Link href={"/view-image/" + image.image_id}>
-                                                <Image src={"https://it-marketing.website/vibe-backend-v2/final_images/" + image.final_image} className='mb-5' alt='' width={200} height={200} ></Image>
+                                                <Image src={"https://dashboard2.yourvibe.lk/final_images/" + image.final_image} className='mb-5' alt='' width={200} height={200} ></Image>
                                             </Link>
                                         </div>
                                     ))}
