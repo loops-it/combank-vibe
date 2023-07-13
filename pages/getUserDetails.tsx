@@ -99,7 +99,7 @@ const UserDetails: NextPage<Props> = ({ dirs }) => {
         setSelectedFile(file);
         setFileSizeError('');
       } else {
-        setFileSizeError('File size limit exceeded (maximum 3MB)');
+        setFileSizeError('File size limit exceeded (maximum 5MB)');
       }
     }
   };
@@ -150,7 +150,11 @@ const UserDetails: NextPage<Props> = ({ dirs }) => {
 
     if (isChecked) {
       const handleData = async () => {
+
         try {
+          const phoneNumberWithoutSpaces = phoneNo.replace(/\s/g, '');
+        console.log("tel : ", phoneNumberWithoutSpaces);
+
           if (!selectedFile) return;
           const formData = new FormData();
           formData.append('savedImageUrl', selectedFile);
@@ -159,12 +163,12 @@ const UserDetails: NextPage<Props> = ({ dirs }) => {
           formData.append('location', country);
           formData.append('ambition', ambition);
           formData.append('email', email);
-          formData.append('phoneNo', phoneNo);
+          formData.append('phoneNo', phoneNumberWithoutSpaces);
 
           console.log('form data : ', formData);
           // data to backend
           console.log(
-            `data : ${name} ,${gender} ,${email} , ${phoneNo}, ${ambition} , ${country}, ${selectedFile} `,
+            `data : ${name} ,${gender} ,${email} , ${phoneNumberWithoutSpaces}, ${ambition} , ${country}, ${selectedFile} `,
           );
           const response = await fetch(
             'https://dashboard.yourvibe.lk/api/save-customer-data',
