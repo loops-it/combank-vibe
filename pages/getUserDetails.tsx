@@ -116,8 +116,10 @@ const UserDetails: NextPage<Props> = ({ dirs }) => {
 
     if (!emailPattern.test(email)) {
       setEmailError('Invalid email address');
+      return false;
     } else {
       setEmailError('');
+      return true;
     }
   };
 
@@ -153,7 +155,7 @@ const UserDetails: NextPage<Props> = ({ dirs }) => {
 
         try {
           const phoneNumberWithoutSpaces = phoneNo.replace(/\s/g, '');
-        console.log("tel : ", phoneNumberWithoutSpaces);
+          console.log("tel : ", phoneNumberWithoutSpaces);
 
           if (!selectedFile) return;
           const formData = new FormData();
@@ -167,9 +169,13 @@ const UserDetails: NextPage<Props> = ({ dirs }) => {
 
           console.log('form data : ', formData);
           // data to backend
-          console.log(
-            `data : ${name} ,${gender} ,${email} , ${phoneNumberWithoutSpaces}, ${ambition} , ${country}, ${selectedFile} `,
-          );
+
+          if (validateEmail(email)){
+            console.log(
+              `data : ${name} ,${gender} ,${email} , ${phoneNumberWithoutSpaces}, ${ambition} , ${country}, ${selectedFile} `,
+            );
+
+            // https://dashboard.yourvibe.lk/api/save-customer-data
           const response = await fetch(
             'https://dashboard.yourvibe.lk/api/save-customer-data',
             {
@@ -249,6 +255,12 @@ const UserDetails: NextPage<Props> = ({ dirs }) => {
             setIsLoading(false);
             router.push('/success');
           }
+          }else {
+            setEmailError('Invalid email address');
+            setIsLoading(false);
+          }
+          
+          
         } catch (error) {
           console.error(error);
         }
