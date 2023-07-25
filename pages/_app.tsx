@@ -6,6 +6,9 @@
 import '../styles/globals.css'
 import type { AppProps } from 'next/app';
 import { Inter } from 'next/font/google';
+import { useRouter } from 'next/router';
+import { useEffect } from 'react';
+
 
 const inter = Inter({
   variable: '--font-inter',
@@ -13,6 +16,21 @@ const inter = Inter({
 });
 
 function MyApp({ Component, pageProps }: AppProps) {
+
+  const router = useRouter()
+
+  useEffect(() => {
+    import('react-facebook-pixel')
+      .then((x) => x.default)
+      .then((ReactPixel) => {
+        ReactPixel.init('781435556665999') // facebookPixelId
+        ReactPixel.pageView()
+
+        router.events.on('routeChangeComplete', () => {
+          ReactPixel.pageView()
+        })
+      })
+  }, [router.events])
   
   return (
     <>
