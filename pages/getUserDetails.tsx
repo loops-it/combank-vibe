@@ -525,6 +525,11 @@ const UserDetails: NextPage<Props> = ({ dirs }) => {
                               </Link>
                             </p>
                           </label>
+                          {phoneNoAttempt && (
+                            <span className="error-message text-danger bg-white px-2 py-1 rounded mb-2 mt-0">
+                              {phoneNoAttemptMsg}
+                            </span>
+                          )}
 
                           <button
                             className="submit-btn text-center d-flex justify-content-center align-items-center my-3 px-3"
