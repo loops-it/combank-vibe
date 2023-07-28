@@ -31,6 +31,8 @@ const UserDetails: NextPage<Props> = ({ dirs }) => {
   const [selectedImage, setSelectedImage] = useState('');
   const [savedImageUrl, setSavedImageUrl] = useState('');
   const [selectedFile, setSelectedFile] = useState<File>();
+  const [phoneNoAttempt, setPhoneNoAttempt] = useState(false);
+  const [phoneNoAttemptMsg, setPhoneNoAttemptMsg] = useState('');
 
   const [spellError, setSpellError] = useState(false);
   // const [selectedImage, setSelectedImage] = useState<null | string>(null);
@@ -185,15 +187,27 @@ const UserDetails: NextPage<Props> = ({ dirs }) => {
           );
 
           const dataBackend = await response.json();
+          console.log("response: ",dataBackend)
+
+
           if (response.status !== 200) {
             throw (
               dataBackend.error ||
               new Error(`Request failed with status ${response.status}`)
             );
           }
-          const resCustomerId = dataBackend.id;
-          setResId(resCustomerId);
-          console.log('respons id : ', resCustomerId);
+          
+
+
+          if (dataBackend.status === 'fail'){
+            setPhoneNoAttempt(true);
+            setPhoneNoAttemptMsg(dataBackend.message);
+            console.log(dataBackend.message);
+          }
+          else{
+            const resCustomerId = dataBackend.id;
+            setResId(resCustomerId);
+            console.log('respons id : ', resCustomerId);
 
           // chat gpt generate
           const responseOpenAi = await fetch('/api/generate', {
@@ -254,6 +268,10 @@ const UserDetails: NextPage<Props> = ({ dirs }) => {
 
             setIsLoading(false);
             router.push('/success');
+          }
+
+
+          
           }
           }else {
             setEmailError('Invalid email address');
