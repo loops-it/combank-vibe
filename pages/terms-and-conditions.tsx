@@ -40,6 +40,12 @@ const Terms = () => {
                                     <li className="text-white font-18 mb-3">
                                         8.These terms and regulations are subject to change at any time at the discretion of ComBank.
                                     </li>
+                                    <li className="text-white font-18 mb-3">
+                                        9.We understand that site is directed to a third party host when directed to the UGC platform. and we guarantee that the information stored in it is safe as it is a well known company and it requires explicit customer consent when third-party infrastructure is used for systems exposed to using customer data.
+                                    </li>
+                                    <li className="text-white font-18 mb-3">
+                                        10.Since there is personal data collected within the site. the site is aligned with the Personal Data Protection Act
+                                    </li>
                                 </ul>
                                 <p className="text-white font-18 mb-3 text-start ms-2 ms-lg-3">
                                     By using this platform, users acknowledge and agree to be bound by these terms and regulations.
